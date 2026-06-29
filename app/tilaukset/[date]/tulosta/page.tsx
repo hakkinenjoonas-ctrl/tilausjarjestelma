@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AutoPrint } from "@/components/auto-print";
+import { BrandMark } from "@/components/brand-mark";
 import { getOrdersByPickupDate } from "@/lib/data/orders";
+import { LabelExportLinks } from "@/components/label-export-links";
+import { getLabelSize } from "@/lib/labels";
 import {
   formatDateTime,
   formatPickupDate,
@@ -18,10 +20,6 @@ type PrintDayPageProps = {
   }>;
 };
 
-function getLabelSize(size?: string) {
-  return size === "4x3" ? "4x3" : "4x6";
-}
-
 export default async function PrintDayPage({
   params,
   searchParams
@@ -36,14 +34,13 @@ export default async function PrintDayPage({
 
   return (
     <main className={`label-print-page ${labelSize}`}>
-      <AutoPrint />
-
       <section className="label-toolbar screen-only">
         <div>
+          <BrandMark compact />
           <p className="eyebrow">Munbyn 403B</p>
           <h2>Tarratulostus {formatPickupDate(date)}</h2>
           <p className="card-copy">
-            Valitse selaimen tulostusikkunassa oikea paperikoko ja poista yl&auml;- ja alatunnisteet.
+            Avaa tai tallenna jokainen tarra PNG-kuvana ja tulosta se MUNBYN Print -sovelluksessa.
           </p>
         </div>
         <div className="inline-actions">
@@ -63,6 +60,7 @@ export default async function PrintDayPage({
         <article className={`label-sheet ${labelSize}`} key={order.id}>
           <header className="label-header">
             <div>
+              <p className="label-brand-name">Forelli</p>
               <p className="label-kicker">Noutotilaus</p>
               <h1>{order.customer_name}</h1>
             </div>
@@ -73,6 +71,10 @@ export default async function PrintDayPage({
               </span>
             </div>
           </header>
+
+          <div className="screen-only label-download-row">
+            <LabelExportLinks date={order.pickup_date} id={order.id} />
+          </div>
 
           <section className="label-primary-meta">
             <div className="label-meta-box">

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AutoPrint } from "@/components/auto-print";
+import { BrandMark } from "@/components/brand-mark";
+import { LabelExportLinks } from "@/components/label-export-links";
 import { getOrderById } from "@/lib/data/orders";
+import { getLabelSize } from "@/lib/labels";
 import {
   formatDateTime,
   formatPickupDate,
@@ -18,11 +20,6 @@ type PrintOrderLabelPageProps = {
     size?: string;
   }>;
 };
-
-function getLabelSize(size?: string) {
-  return size === "4x3" ? "4x3" : "4x6";
-}
-
 export default async function PrintOrderLabelPage({
   params,
   searchParams
@@ -37,30 +34,31 @@ export default async function PrintOrderLabelPage({
 
   return (
     <main className={`label-print-page single ${labelSize}`}>
-      <AutoPrint />
-
       <section className="label-toolbar screen-only">
         <div>
-          <p className="eyebrow">Yksittainen tilaus</p>
+          <BrandMark compact />
+          <p className="eyebrow">MUNBYN 403B</p>
           <h2>{order.customer_name}</h2>
-          <p className="card-copy">Yksi tarra t&auml;lle tilaukselle.</p>
+          <p className="card-copy">
+            Avaa oikean kokoinen PNG ja tulosta se MUNBYN Print -sovelluksen kautta.
+          </p>
         </div>
         <div className="inline-actions">
-          <Link className="ghost-button" href={`/tilaukset/${date}/${id}/tarra?size=4x6`}>
-            4x6 tarra
-          </Link>
-          <Link className="ghost-button" href={`/tilaukset/${date}/${id}/tarra?size=4x3`}>
-            4x3 tarra
-          </Link>
+          <LabelExportLinks date={date} id={id} mode="png" />
           <Link className="primary-button" href={`/tilaukset/${date}`}>
             Takaisin paivaan
           </Link>
         </div>
+        <p className="card-copy">
+          Suositus: tallenna kuva puhelimeen ja avaa se MUNBYN Print -sovelluksessa. 403B toimii
+          parhaiten tarkalla 4 tuuman levyisella PNG-tarralla.
+        </p>
       </section>
 
       <article className={`label-sheet ${labelSize}`}>
         <header className="label-header">
           <div>
+            <p className="label-brand-name">Forelli</p>
             <p className="label-kicker">Noutotilaus</p>
             <h1>{order.customer_name}</h1>
           </div>
@@ -74,17 +72,17 @@ export default async function PrintOrderLabelPage({
             <span className="label-meta-label">Noutopaiva</span>
             <strong>{formatPickupDate(order.pickup_date)}</strong>
           </div>
+          <div className="label-meta-box">
+            <span className="label-meta-label">Puhelin</span>
+            <strong>{formatPhone(order.phone)}</strong>
+          </div>
+          {order.email ? (
             <div className="label-meta-box">
-              <span className="label-meta-label">Puhelin</span>
-              <strong>{formatPhone(order.phone)}</strong>
+              <span className="label-meta-label">Sahkoposti</span>
+              <strong>{order.email}</strong>
             </div>
-            {order.email ? (
-              <div className="label-meta-box">
-                <span className="label-meta-label">Sahkoposti</span>
-                <strong>{order.email}</strong>
-              </div>
-            ) : null}
-          </section>
+          ) : null}
+        </section>
 
         <section className="label-items">
           {order.order_items.map((item) => (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { deleteOrderAction, updateOrderStatusAction } from "@/lib/actions/orders";
 import type { DetailedOrder, OrderStatus } from "@/lib/types";
 import {
@@ -8,6 +9,7 @@ import {
   formatWeight
 } from "@/lib/utils/format";
 import { ConfirmSubmitButton } from "./confirm-submit-button";
+import { LabelExportLinks } from "./label-export-links";
 
 const statusOptions: OrderStatus[] = ["uusi", "kasittelyssa", "valmis", "noudettu"];
 
@@ -20,6 +22,9 @@ export function OrderCard({ order }: OrderCardProps) {
     <article className="panel order-panel">
       <div className="panel-header">
         <div>
+          <div className="order-brand-row">
+            <BrandMark compact />
+          </div>
           <p className="section-label">Asiakas</p>
           <h2>{order.customer_name}</h2>
           <p className="card-copy">{formatPhone(order.phone)}</p>
@@ -51,20 +56,7 @@ export function OrderCard({ order }: OrderCardProps) {
         >
           Muokkaa
         </Link>
-        <Link
-          className="ghost-button"
-          href={`/tilaukset/${order.pickup_date}/${order.id}/tarra?size=4x6`}
-          target="_blank"
-        >
-          Tarra 4x6
-        </Link>
-        <Link
-          className="ghost-button"
-          href={`/tilaukset/${order.pickup_date}/${order.id}/tarra?size=4x3`}
-          target="_blank"
-        >
-          Tarra 4x3
-        </Link>
+        <LabelExportLinks date={order.pickup_date} id={order.id} />
         <form action={deleteOrderAction}>
           <input name="orderId" type="hidden" value={order.id} />
           <input name="pickupDate" type="hidden" value={order.pickup_date} />

@@ -5,12 +5,12 @@ import type { Route } from "next";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/tilaukset", label: "Tilaukset", icon: "📋" },
-  { href: "/uusi-tilaus", label: "Uusi tilaus", icon: "➕" },
-  { href: "/raportit", label: "Raportit", icon: "📊" },
-  { href: "/tiivistelma", label: "Tiivistelma", icon: "📦" },
-  { href: "/asetukset", label: "Asetukset", icon: "⚙️" }
-] satisfies { href: Route; label: string; icon: string }[];
+  { href: "/tilaukset", label: "Tilaukset" },
+  { href: "/uusi-tilaus", label: "Uusi tilaus" },
+  { href: "/raportit", label: "Raportit" },
+  { href: "/tiivistelma", label: "Tiivistelma" },
+  { href: "/asetukset", label: "Asetukset" }
+] satisfies { href: Route; label: string }[];
 
 export function MainNav() {
   const pathname = usePathname();
@@ -26,7 +26,7 @@ export function MainNav() {
             href={item.href}
             key={item.href}
           >
-            <span aria-hidden="true">{item.icon}</span>
+            <span aria-hidden="true" className="nav-pill-marker" />
             <span>{item.label}</span>
           </Link>
         );
