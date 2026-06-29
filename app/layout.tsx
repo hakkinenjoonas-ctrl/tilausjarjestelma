@@ -23,15 +23,8 @@ export default function RootLayout({
               <div className="topbar-brand">
                 <BrandMark />
               </div>
-              <div className="topbar-copy-block">
-                <p className="eyebrow">Forellin tilausohjaamo</p>
-                <h1>Ennakkotilausten hallinta yhdella selkealla nakymalla</h1>
-                <p className="topbar-copy">
-                  Merellinen, rauhallinen ja nopea tyokalu tiskille, puhelimeen ja
-                  tulostettavaan etikettiin.
-                </p>
-              </div>
             </div>
+            <h1>Ennakkotilausten hallinta</h1>
           </header>
           <MainNav />
           <div className="page-shell">{children}</div>
