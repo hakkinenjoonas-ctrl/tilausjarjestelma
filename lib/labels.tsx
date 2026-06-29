@@ -47,29 +47,17 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
     >
       <div style={{ display: "flex", flexDirection: "column", gap: compact ? 14 : 18 }}>
         <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: "76%" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              {logoSrc ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  alt="Forelli"
-                  height={compact ? 44 : 52}
-                  src={logoSrc}
-                  style={{ objectFit: "contain" }}
-                  width={compact ? 44 : 52}
-                />
-              ) : null}
-              <div
-                style={{
-                  fontSize: compact ? 18 : 20,
-                  fontWeight: 800,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.16em",
-                  color: "#0d3774"
-                }}
-              >
-                Forelli
-              </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: "72%" }}>
+            <div
+              style={{
+                fontSize: compact ? 18 : 20,
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "0.16em",
+                color: "#0d3774"
+              }}
+            >
+              Forelli
             </div>
             <div
               style={{
@@ -94,6 +82,16 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+            {logoSrc ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                alt="Forelli"
+                height={compact ? 56 : 72}
+                src={logoSrc}
+                style={{ objectFit: "contain" }}
+                width={compact ? 56 : 72}
+              />
+            ) : null}
             <div
               style={{
                 border: "2px solid #0d3774",

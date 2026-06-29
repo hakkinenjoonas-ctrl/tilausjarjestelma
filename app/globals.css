@@ -386,7 +386,7 @@ a {
 }
 
 .order-brand-row {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .order-brand-row .brand-copy-block {
@@ -396,6 +396,13 @@ a {
 .order-brand-row .brand-logo-wrap {
   width: 52px;
   height: 52px;
+}
+
+.order-corner-stack {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  flex: 0 0 auto;
 }
 
 .order-panel::after {
@@ -937,6 +944,12 @@ a {
   display: grid;
   justify-items: end;
   gap: 6px;
+}
+
+.label-corner-logo {
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .label-status {

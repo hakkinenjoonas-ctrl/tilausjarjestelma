@@ -22,15 +22,17 @@ export function OrderCard({ order }: OrderCardProps) {
     <article className="panel order-panel">
       <div className="panel-header">
         <div>
-          <div className="order-brand-row">
-            <BrandMark compact />
-          </div>
           <p className="section-label">Asiakas</p>
           <h2>{order.customer_name}</h2>
           <p className="card-copy">{formatPhone(order.phone)}</p>
           {order.email ? <p className="card-copy">{order.email}</p> : null}
         </div>
-        <span className={`status-pill ${order.status}`}>{order.status}</span>
+        <div className="order-corner-stack">
+          <div className="order-brand-row">
+            <BrandMark compact />
+          </div>
+          <span className={`status-pill ${order.status}`}>{order.status}</span>
+        </div>
       </div>
 
       <div className="order-meta">

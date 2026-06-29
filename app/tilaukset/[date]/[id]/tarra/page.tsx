@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BrandMark } from "@/components/brand-mark";
 import { LabelExportLinks } from "@/components/label-export-links";
@@ -63,6 +64,14 @@ export default async function PrintOrderLabelPage({
             <h1>{order.customer_name}</h1>
           </div>
           <div className="label-status-block">
+            <Image
+              alt="Kalakauppa Forelli"
+              className="label-corner-logo"
+              height={72}
+              priority
+              src="/brand-logo.png"
+              width={72}
+            />
             <span className={`label-status ${order.status}`}>{order.status}</span>
           </div>
         </header>

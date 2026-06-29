@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BrandMark } from "@/components/brand-mark";
 import { getOrdersByPickupDate } from "@/lib/data/orders";
@@ -65,6 +66,13 @@ export default async function PrintDayPage({
               <h1>{order.customer_name}</h1>
             </div>
             <div className="label-status-block">
+              <Image
+                alt="Kalakauppa Forelli"
+                className="label-corner-logo"
+                height={72}
+                src="/brand-logo.png"
+                width={72}
+              />
               <span className={`label-status ${order.status}`}>{order.status}</span>
               <span className="label-sequence">
                 {index + 1}/{orders.length}
