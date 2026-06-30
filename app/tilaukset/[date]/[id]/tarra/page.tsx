@@ -58,7 +58,7 @@ export default async function PrintOrderLabelPage({
 
       <article className={`label-sheet ${labelSize}`}>
         <header className="label-header">
-          <div>
+          <div className="label-heading-block">
             <p className="label-brand-name">Forelli</p>
             <p className="label-kicker">Noutotilaus</p>
             <h1>{order.customer_name}</h1>

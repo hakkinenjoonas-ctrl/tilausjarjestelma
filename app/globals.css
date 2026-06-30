@@ -382,11 +382,12 @@ a {
 .order-panel {
   position: relative;
   overflow: hidden;
+  padding: 28px;
   gap: 18px;
 }
 
 .order-brand-row {
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 
 .order-brand-row .brand-copy-block {
@@ -394,28 +395,43 @@ a {
 }
 
 .order-brand-row .brand-logo-wrap {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
 }
 
 .order-corner-stack {
   display: grid;
   justify-items: end;
-  gap: 10px;
+  gap: 8px;
   flex: 0 0 auto;
 }
 
 .order-panel::after {
   content: "";
   position: absolute;
-  inset: auto -16px -22px auto;
-  width: 160px;
-  height: 160px;
+  inset: auto -8px -8px auto;
+  width: 108px;
+  height: 108px;
   background-image: url("/brand-logo.png");
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: 0.04;
+  opacity: 0.025;
   pointer-events: none;
+}
+
+.order-panel .panel-header {
+  margin-bottom: 12px;
+}
+
+.order-panel .panel-header > div:first-child {
+  max-width: min(100%, 620px);
+  padding-right: 12px;
+}
+
+.order-panel .panel-header h2 {
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  line-height: 1;
+  margin-bottom: 10px;
 }
 
 .item-row,
@@ -450,7 +466,8 @@ a {
   margin: 0;
   padding: 16px 18px;
   border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(247, 250, 255, 0.82);
+  border: 1px solid rgba(13, 55, 116, 0.08);
 }
 
 .field {
@@ -766,6 +783,27 @@ a {
     padding: 16px;
   }
 
+  .order-panel {
+    padding: 20px;
+  }
+
+  .order-panel .panel-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .order-panel .panel-header > div:first-child {
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .order-corner-stack {
+    width: 100%;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: start;
+  }
+
   .product-card-top {
     align-items: flex-start;
     flex-direction: column;
@@ -910,14 +948,25 @@ a {
 .label-footer {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   align-items: flex-start;
+}
+
+.label-heading-block {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  max-width: calc(100% - 136px);
 }
 
 .label-header h1,
 .label-notes p,
 .label-meta-box strong {
   margin: 0;
+}
+
+.label-header h1 {
+  line-height: 0.98;
 }
 
 .label-kicker,
@@ -943,6 +992,8 @@ a {
   display: grid;
   justify-items: end;
   gap: 6px;
+  width: 112px;
+  flex: 0 0 112px;
 }
 
 .label-corner-logo {
@@ -993,20 +1044,21 @@ a {
 
 .label-items {
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .label-item-row {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  align-items: baseline;
+  align-items: center;
   border-bottom: 1px dashed #c5d5e8;
   padding-bottom: 6px;
 }
 
 .label-item-row strong {
   font-size: 1rem;
+  max-width: 72%;
 }
 
 .label-item-row span {

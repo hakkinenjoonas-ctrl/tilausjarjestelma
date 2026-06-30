@@ -29,6 +29,9 @@ type OrderLabelProps = {
 
 export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelProps) {
   const compact = size === "4x3";
+  const cornerLogoSize = compact ? 52 : 64;
+  const titleSize = compact ? 32 : 38;
+  const itemSize = compact ? 22 : 24;
 
   return (
     <div
@@ -46,14 +49,15 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
       }}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: compact ? 14 : 18 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: "72%" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0, paddingRight: 12 }}>
             <div
               style={{
-                fontSize: compact ? 18 : 20,
+                display: "flex",
+                fontSize: compact ? 16 : 18,
                 fontWeight: 800,
                 textTransform: "uppercase",
-                letterSpacing: "0.16em",
+                letterSpacing: "0.14em",
                 color: "#0d3774"
               }}
             >
@@ -61,7 +65,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             </div>
             <div
               style={{
-                fontSize: compact ? 18 : 20,
+                display: "flex",
+                fontSize: compact ? 16 : 18,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
@@ -72,32 +77,43 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             </div>
             <div
               style={{
-                fontSize: compact ? 38 : 46,
-                lineHeight: 1.05,
-                fontWeight: 700
+                display: "flex",
+                fontSize: titleSize,
+                lineHeight: 1,
+                fontWeight: 800
               }}
             >
               {order.customer_name}
             </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: 8,
+              flexShrink: 0,
+              width: compact ? 132 : 152
+            }}
+          >
             {logoSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 alt="Forelli"
-                height={compact ? 56 : 72}
+                height={cornerLogoSize}
                 src={logoSrc}
                 style={{ objectFit: "contain" }}
-                width={compact ? 56 : 72}
+                width={cornerLogoSize}
               />
             ) : null}
             <div
               style={{
+                display: "flex",
                 border: "2px solid #0d3774",
                 borderRadius: 999,
-                padding: compact ? "8px 12px" : "10px 14px",
-                fontSize: compact ? 18 : 20,
+                padding: compact ? "8px 12px" : "8px 14px",
+                fontSize: compact ? 16 : 18,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 color: "#0d3774",
@@ -107,7 +123,9 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               {order.status}
             </div>
             {sequenceLabel ? (
-              <div style={{ fontSize: compact ? 16 : 18, color: "#444444" }}>{sequenceLabel}</div>
+              <div style={{ display: "flex", fontSize: compact ? 14 : 16, color: "#444444" }}>
+                {sequenceLabel}
+              </div>
             ) : null}
           </div>
         </div>
@@ -129,7 +147,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
               Noutopaiva
             </div>
-            <div style={{ fontSize: compact ? 24 : 28, fontWeight: 700 }}>
+            <div style={{ display: "flex", fontSize: compact ? 22 : 24, fontWeight: 700 }}>
               {formatPickupDate(order.pickup_date)}
             </div>
           </div>
@@ -150,7 +168,9 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
               Puhelin
             </div>
-            <div style={{ fontSize: compact ? 22 : 26, fontWeight: 700 }}>{formatPhone(order.phone)}</div>
+            <div style={{ display: "flex", fontSize: compact ? 20 : 22, fontWeight: 700 }}>
+              {formatPhone(order.phone)}
+            </div>
           </div>
 
           {order.email ? (
@@ -170,7 +190,9 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
                 Sahkoposti
               </div>
-              <div style={{ fontSize: compact ? 18 : 20, fontWeight: 700 }}>{order.email}</div>
+              <div style={{ display: "flex", fontSize: compact ? 16 : 18, fontWeight: 700 }}>
+                {order.email}
+              </div>
             </div>
           ) : null}
         </div>
@@ -183,13 +205,24 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
                 display: "flex",
                 justifyContent: "space-between",
                 gap: 16,
-                alignItems: "baseline",
+                alignItems: "center",
                 borderBottom: "2px dashed #c6d6eb",
-                paddingBottom: 8
+                paddingBottom: compact ? 6 : 8,
+                paddingTop: compact ? 2 : 4
               }}
             >
-              <div style={{ fontSize: compact ? 24 : 28, fontWeight: 700 }}>{item.product_name}</div>
-              <div style={{ fontSize: compact ? 24 : 28, fontWeight: 700, whiteSpace: "nowrap" }}>
+              <div style={{ display: "flex", fontSize: itemSize, fontWeight: 700, maxWidth: "72%" }}>
+                {item.product_name}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: itemSize,
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
+                  flexShrink: 0
+                }}
+              >
                 {formatQuantity(item.quantity_grams)}
               </div>
             </div>
@@ -211,7 +244,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
               Lisatiedot
             </div>
-            <div style={{ fontSize: compact ? 20 : 22 }}>{order.notes}</div>
+            <div style={{ display: "flex", fontSize: compact ? 18 : 20 }}>{order.notes}</div>
           </div>
         ) : null}
       </div>
@@ -226,7 +259,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
           paddingTop: compact ? 10 : 14
         }}
       >
-        <div style={{ fontSize: compact ? 16 : 18, color: "#4b6584" }}>
+        <div style={{ display: "flex", fontSize: compact ? 16 : 18, color: "#4b6584" }}>
           Luotu {formatDateTime(order.created_at)}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: compact ? 18 : 20, fontWeight: 700 }}>

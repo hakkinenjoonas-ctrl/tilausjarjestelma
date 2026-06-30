@@ -1,5 +1,5 @@
 import { hasSupabaseEnv } from "@/lib/env";
-import { createClient } from "@/lib/supabase/server";
+import { createReadOnlyClient } from "@/lib/supabase/read-only";
 import { demoOrders, demoProducts } from "@/lib/data/demo-data";
 import type {
   DetailedOrder,
@@ -113,7 +113,7 @@ async function getOrdersWithItems(): Promise<DetailedOrder[]> {
     return sortOrders(demoOrders);
   }
 
-  const supabase = await createClient();
+  const supabase = createReadOnlyClient();
   const { data, error } = await supabase
     .from("orders")
     .select(
@@ -135,7 +135,7 @@ export async function getProducts(): Promise<Product[]> {
     return demoProducts;
   }
 
-  const supabase = await createClient();
+  const supabase = createReadOnlyClient();
   const { data, error } = await supabase
     .from("products")
     .select("id, name, active, sort_order, created_at")
