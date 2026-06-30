@@ -41,7 +41,8 @@ export default async function PrintDayPage({
           <p className="eyebrow">Munbyn 403B</p>
           <h2>Tarratulostus {formatPickupDate(date)}</h2>
           <p className="card-copy">
-            Avaa tai tallenna jokainen tarra PNG-kuvana ja tulosta se MUNBYN Print -sovelluksessa.
+            iOS Safarissa jokainen tarra voidaan muodostaa ensin PDF:ksi. Muilla laitteilla tarra
+            avautuu edelleen PNG-kuvana MUNBYN Print -sovellusta varten.
           </p>
         </div>
         <div className="inline-actions">

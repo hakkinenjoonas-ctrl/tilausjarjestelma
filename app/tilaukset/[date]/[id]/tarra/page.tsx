@@ -41,7 +41,8 @@ export default async function PrintOrderLabelPage({
           <p className="eyebrow">MUNBYN 403B</p>
           <h2>{order.customer_name}</h2>
           <p className="card-copy">
-            Avaa oikean kokoinen PNG ja tulosta se MUNBYN Print -sovelluksen kautta.
+            iOS Safarissa tarra muodostetaan ensin PDF:ksi. Muilla laitteilla tarra avautuu PNG:nä
+            MUNBYN Print -sovellusta varten.
           </p>
         </div>
         <div className="inline-actions">
@@ -51,8 +52,8 @@ export default async function PrintOrderLabelPage({
           </Link>
         </div>
         <p className="card-copy">
-          Suositus: tallenna kuva puhelimeen ja avaa se MUNBYN Print -sovelluksessa. 403B toimii
-          parhaiten tarkalla 4 tuuman levyisella PNG-tarralla.
+          403B toimii parhaiten tarkalla 4 tuuman levyisella tarralla. iPhonessa voit jakaa
+          muodostetun PDF:n suoraan tulostukseen.
         </p>
       </section>
 
