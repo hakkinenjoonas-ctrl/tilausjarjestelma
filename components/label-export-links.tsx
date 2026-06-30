@@ -34,6 +34,14 @@ function isAppleMobileSafari() {
   return isIOSDevice && isSafariEngine;
 }
 
+function isAndroidDevice() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return /Android/i.test(window.navigator.userAgent);
+}
+
 function blobToDataUrl(blob: Blob) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -72,6 +80,26 @@ async function shareOrOpenPdf(blob: Blob, fileName: string) {
   }, 30000);
 }
 
+async function sharePng(blob: Blob, fileName: string) {
+  const file = new File([blob], fileName, { type: "image/png" });
+
+  if (navigator.canShare?.({ files: [file] })) {
+    await navigator.share({
+      files: [file],
+      title: fileName
+    });
+
+    return;
+  }
+
+  const blobUrl = URL.createObjectURL(blob);
+  window.open(blobUrl, "_blank", "noopener,noreferrer");
+
+  window.setTimeout(() => {
+    URL.revokeObjectURL(blobUrl);
+  }, 30000);
+}
+
 function openPng(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
@@ -81,8 +109,10 @@ export function LabelExportLinks({
   id,
   mode = "preview"
 }: LabelExportLinksProps) {
-  const [loadingSize, setLoadingSize] = useState<LabelSize | null>(null);
+  const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const appleMobileSafari = isAppleMobileSafari();
+  const androidDevice = isAndroidDevice();
 
   if (mode === "preview") {
     return (
@@ -95,14 +125,14 @@ export function LabelExportLinks({
   async function handleLabelExport(size: LabelSize) {
     const pngUrl = getPngUrl(date, id, size);
 
-    if (!isAppleMobileSafari()) {
+    if (!appleMobileSafari) {
       openPng(pngUrl);
       return;
     }
 
     try {
       setError(null);
-      setLoadingSize(size);
+      setLoadingAction(`pdf-${size}`);
 
       const pngResponse = await fetch(pngUrl, { cache: "no-store" });
 
@@ -132,8 +162,83 @@ export function LabelExportLinks({
 
       setError(message);
     } finally {
-      setLoadingSize(null);
+      setLoadingAction(null);
     }
+  }
+
+  async function handleAndroidShare(size: LabelSize) {
+    try {
+      setError(null);
+      setLoadingAction(`share-${size}`);
+
+      const pngUrl = getPngUrl(date, id, size);
+      const pngResponse = await fetch(pngUrl, { cache: "no-store" });
+
+      if (!pngResponse.ok) {
+        throw new Error("Tarrakuvan haku epaonnistui.");
+      }
+
+      const pngBlob = await pngResponse.blob();
+      await sharePng(pngBlob, `forelli-label-${date}-${size}.png`);
+    } catch (caughtError) {
+      const message =
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Kuvan jakaminen epaonnistui. Kokeile avata PNG ensin.";
+
+      setError(message);
+    } finally {
+      setLoadingAction(null);
+    }
+  }
+
+  if (androidDevice) {
+    return (
+      <div className="label-export-stack">
+        <div className="label-export-grid">
+          <button
+            className="ghost-button"
+            disabled={loadingAction !== null}
+            onClick={() => openPng(getPngUrl(date, id, "4x6"))}
+            type="button"
+          >
+            Avaa PNG 4x6
+          </button>
+          <button
+            className="ghost-button"
+            disabled={loadingAction !== null}
+            onClick={() => void handleAndroidShare("4x6")}
+            type="button"
+          >
+            {loadingAction === "share-4x6" ? "Jaetaan..." : "Jaa tulostukseen 4x6"}
+          </button>
+          <button
+            className="ghost-button"
+            disabled={loadingAction !== null}
+            onClick={() => openPng(getPngUrl(date, id, "4x3"))}
+            type="button"
+          >
+            Avaa PNG 4x3
+          </button>
+          <button
+            className="ghost-button"
+            disabled={loadingAction !== null}
+            onClick={() => void handleAndroidShare("4x3")}
+            type="button"
+          >
+            {loadingAction === "share-4x3" ? "Jaetaan..." : "Jaa tulostukseen 4x3"}
+          </button>
+        </div>
+        <p className="label-export-note">
+          Androidilla voit joko avata PNG-tarran tai jakaa sen suoraan MUNBYN Print -sovellukseen.
+        </p>
+        {error ? (
+          <p aria-live="polite" className="label-export-error">
+            {error}
+          </p>
+        ) : null}
+      </div>
+    );
   }
 
   return (
@@ -141,24 +246,25 @@ export function LabelExportLinks({
       <div className="inline-actions">
         <button
           className="ghost-button"
-          disabled={loadingSize !== null}
+          disabled={loadingAction !== null}
           onClick={() => void handleLabelExport("4x6")}
           type="button"
         >
-          {loadingSize === "4x6" ? "Muodostetaan PDF..." : "Avaa tarra 4x6"}
+          {loadingAction === "pdf-4x6" ? "Muodostetaan PDF..." : "Avaa tarra 4x6"}
         </button>
         <button
           className="ghost-button"
-          disabled={loadingSize !== null}
+          disabled={loadingAction !== null}
           onClick={() => void handleLabelExport("4x3")}
           type="button"
         >
-          {loadingSize === "4x3" ? "Muodostetaan PDF..." : "Avaa tarra 4x3"}
+          {loadingAction === "pdf-4x3" ? "Muodostetaan PDF..." : "Avaa tarra 4x3"}
         </button>
       </div>
       <p className="label-export-note">
-        iPhonessa ja iPadissa Safari muodostaa ensin PDF:n, jonka voit avata tai jakaa suoraan
-        laitteesta.
+        {appleMobileSafari
+          ? "iPhonessa ja iPadissa Safari muodostaa ensin PDF:n, jonka voit avata tai jakaa suoraan laitteesta."
+          : "Muilla laitteilla tarra avautuu PNG-kuvana, jonka voit tallentaa tai avata tulostussovelluksessa."}
       </p>
       {error ? (
         <p aria-live="polite" className="label-export-error">
