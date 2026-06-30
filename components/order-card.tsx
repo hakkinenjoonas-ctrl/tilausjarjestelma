@@ -29,7 +29,7 @@ export function OrderCard({ order }: OrderCardProps) {
         </div>
         <div className="order-corner-stack">
           <div className="order-brand-row">
-            <BrandMark compact />
+            <BrandMark compact logoOnly />
           </div>
           <span className={`status-pill ${order.status}`}>{order.status}</span>
         </div>

@@ -37,7 +37,7 @@ export default async function PrintDayPage({
     <main className={`label-print-page ${labelSize}`}>
       <section className="label-toolbar screen-only">
         <div>
-          <BrandMark compact />
+          <BrandMark compact logoOnly />
           <p className="eyebrow">Munbyn 403B</p>
           <h2>Tarratulostus {formatPickupDate(date)}</h2>
           <p className="card-copy">

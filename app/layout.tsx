@@ -21,7 +21,7 @@ export default function RootLayout({
           <header className="topbar">
             <div className="topbar-shell">
               <div className="topbar-brand">
-                <BrandMark />
+                <BrandMark logoOnly />
               </div>
             </div>
             <h1>Ennakkotilausten hallinta</h1>

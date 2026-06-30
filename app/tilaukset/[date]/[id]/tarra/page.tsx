@@ -37,7 +37,7 @@ export default async function PrintOrderLabelPage({
     <main className={`label-print-page single ${labelSize}`}>
       <section className="label-toolbar screen-only">
         <div>
-          <BrandMark compact />
+          <BrandMark compact logoOnly />
           <p className="eyebrow">MUNBYN 403B</p>
           <h2>{order.customer_name}</h2>
           <p className="card-copy">

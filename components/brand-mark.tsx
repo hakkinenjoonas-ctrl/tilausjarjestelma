@@ -2,11 +2,12 @@ import Image from "next/image";
 
 type BrandMarkProps = {
   compact?: boolean;
+  logoOnly?: boolean;
 };
 
-export function BrandMark({ compact = false }: BrandMarkProps) {
+export function BrandMark({ compact = false, logoOnly = false }: BrandMarkProps) {
   return (
-    <div className={`brand-mark ${compact ? "compact" : ""}`}>
+    <div className={`brand-mark ${compact ? "compact" : ""} ${logoOnly ? "logo-only" : ""}`}>
       <div className="brand-logo-wrap">
         <Image
           alt="Kalakauppa Forelli"
@@ -17,11 +18,13 @@ export function BrandMark({ compact = false }: BrandMarkProps) {
           width={compact ? 68 : 92}
         />
       </div>
-      <div className="brand-copy-block">
-        <p className="brand-overline">Kalakauppa</p>
-        <strong>Forelli</strong>
-        <span>Tuoretta lahikalaa</span>
-      </div>
+      {logoOnly ? null : (
+        <div className="brand-copy-block">
+          <p className="brand-overline">Kalakauppa</p>
+          <strong>Forelli</strong>
+          <span>Tuoretta lahikalaa</span>
+        </div>
+      )}
     </div>
   );
 }

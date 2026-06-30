@@ -139,6 +139,10 @@ a {
   gap: 16px;
 }
 
+.brand-mark.logo-only {
+  display: inline-flex;
+}
+
 .brand-mark.compact {
   gap: 12px;
 }
@@ -202,6 +206,7 @@ a {
   font-size: clamp(2rem, 3vw, 3rem);
   line-height: 1;
   color: var(--brand-strong);
+  max-width: 12ch;
 }
 
 .main-nav {
