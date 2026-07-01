@@ -86,9 +86,9 @@ export default async function PrintDayPage({
           </div>
 
           <section className="label-primary-meta">
-            <div className="label-meta-box">
+            <div className="label-meta-box pickup-date-box">
               <span className="label-meta-label">Noutopaiva</span>
-              <strong>{formatPickupDate(order.pickup_date)}</strong>
+              <strong className="pickup-date-value">{formatPickupDate(order.pickup_date)}</strong>
             </div>
             <div className="label-meta-box">
               <span className="label-meta-label">Puhelin</span>

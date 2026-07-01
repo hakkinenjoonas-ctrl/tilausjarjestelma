@@ -29,8 +29,9 @@ type OrderLabelProps = {
 
 export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelProps) {
   const compact = size === "4x3";
-  const cornerLogoSize = compact ? 52 : 64;
-  const titleSize = compact ? 32 : 38;
+  const cornerLogoSize = compact ? 88 : 116;
+  const titleSize = compact ? 32 : 40;
+  const pickupDateSize = compact ? 30 : 40;
   const itemSize = compact ? 22 : 24;
 
   return (
@@ -94,7 +95,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               alignItems: "flex-end",
               gap: 8,
               flexShrink: 0,
-              width: compact ? 132 : 152
+              width: compact ? 150 : 184
             }}
           >
             {logoSrc ? (
@@ -147,7 +148,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
               Noutopaiva
             </div>
-            <div style={{ display: "flex", fontSize: compact ? 22 : 24, fontWeight: 700 }}>
+            <div style={{ display: "flex", fontSize: pickupDateSize, fontWeight: 800, lineHeight: 1 }}>
               {formatPickupDate(order.pickup_date)}
             </div>
           </div>
