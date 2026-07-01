@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { BrandMark } from "@/components/brand-mark";
-import { MainNav } from "@/components/main-nav";
+import { AppHeader } from "@/components/app-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,15 +17,7 @@ export default function RootLayout({
     <html lang="fi">
       <body>
         <div className="app-shell">
-          <header className="topbar">
-            <div className="topbar-shell">
-              <div className="topbar-brand">
-                <BrandMark logoOnly />
-              </div>
-            </div>
-            <h1>Ennakkotilausten hallinta</h1>
-          </header>
-          <MainNav />
+          <AppHeader />
           <div className="page-shell">{children}</div>
         </div>
       </body>

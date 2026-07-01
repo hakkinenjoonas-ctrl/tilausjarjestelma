@@ -90,6 +90,62 @@ a {
     radial-gradient(circle at top right, rgba(107, 164, 217, 0.14), transparent 40%);
 }
 
+.customer-topbar {
+  padding: 34px;
+}
+
+.customer-topbar-shell {
+  display: grid;
+  grid-template-columns: minmax(180px, 232px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.customer-topbar-logo-wrap {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  border-radius: 32px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 241, 251, 0.94));
+  border: 1px solid rgba(13, 55, 116, 0.12);
+  box-shadow: 0 18px 36px rgba(13, 55, 116, 0.12);
+}
+
+.customer-topbar-logo {
+  width: min(100%, 188px);
+  height: auto;
+  object-fit: contain;
+}
+
+.customer-topbar-copy {
+  display: grid;
+  gap: 14px;
+}
+
+.customer-topbar-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.9rem;
+  color: var(--brand-strong);
+}
+
+.customer-topbar-copy h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  color: var(--brand-strong);
+}
+
+.customer-topbar-description {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
 .topbar h1,
 .page-intro h2,
 .panel h2,
@@ -220,6 +276,10 @@ a {
   backdrop-filter: blur(10px);
 }
 
+.main-nav.customer-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .nav-pill {
   min-height: 72px;
   border-radius: 18px;
@@ -269,71 +329,6 @@ a {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(241, 247, 253, 0.92)),
     radial-gradient(circle at top right, rgba(107, 164, 217, 0.16), transparent 32%);
-}
-
-.public-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 34px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 253, 0.96)),
-    radial-gradient(circle at top right, rgba(24, 72, 143, 0.12), transparent 34%),
-    radial-gradient(circle at bottom left, rgba(107, 164, 217, 0.14), transparent 28%);
-  box-shadow: var(--shadow);
-}
-
-.public-hero-brand {
-  display: grid;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
-  gap: 28px;
-  align-items: center;
-}
-
-.public-hero-logo-wrap {
-  display: grid;
-  place-items: center;
-  padding: 18px;
-  border-radius: 32px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 241, 251, 0.94));
-  border: 1px solid rgba(13, 55, 116, 0.12);
-  box-shadow: 0 18px 36px rgba(13, 55, 116, 0.12);
-}
-
-.public-hero-logo {
-  width: min(100%, 200px);
-  height: auto;
-  object-fit: contain;
-}
-
-.public-hero-copy {
-  display: grid;
-  gap: 14px;
-}
-
-.public-hero-kicker {
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.9rem;
-  color: var(--brand-strong);
-}
-
-.public-hero-copy h1 {
-  margin: 0;
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  line-height: 0.92;
-  letter-spacing: -0.06em;
-  color: var(--brand-strong);
-}
-
-.public-hero-description {
-  margin: 0;
-  max-width: 60ch;
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.65;
 }
 
 .page-intro-action,
@@ -818,11 +813,11 @@ a {
     flex-direction: row;
   }
 
-  .public-hero-brand {
+  .customer-topbar-shell {
     grid-template-columns: 1fr;
   }
 
-  .public-hero-logo-wrap {
+  .customer-topbar-logo-wrap {
     justify-self: start;
     width: min(100%, 240px);
   }
@@ -843,7 +838,6 @@ a {
 
 @media (max-width: 720px) {
   .topbar,
-  .public-hero,
   .page-intro,
   .panel,
   .empty-state,
@@ -851,11 +845,11 @@ a {
     padding: 18px;
   }
 
-  .public-hero-copy h1 {
+  .customer-topbar-copy h1 {
     font-size: clamp(2.1rem, 11vw, 3.6rem);
   }
 
-  .public-hero-description {
+  .customer-topbar-description {
     font-size: 1rem;
   }
 
