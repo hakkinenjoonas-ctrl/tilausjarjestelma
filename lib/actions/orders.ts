@@ -45,7 +45,18 @@ function parseItems(rawValue: FormDataEntryValue | null): SelectedItem[] {
   }
 }
 
-async function validateOrder(formData: FormData) {
+function getTodayDateString() {
+  return new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Helsinki"
+  }).format(new Date());
+}
+
+async function validateOrder(
+  formData: FormData,
+  options?: {
+    activeProductsOnly?: boolean;
+  }
+) {
   const pickupDate = String(formData.get("pickupDate") ?? "").trim();
   const customerName = String(formData.get("customerName") ?? "").trim();
   const phone = normalizePhone(String(formData.get("phone") ?? ""));
@@ -55,6 +66,10 @@ async function validateOrder(formData: FormData) {
 
   if (!pickupDate) {
     return { ok: false as const, message: "Valitse noutopaiva." };
+  }
+
+  if (pickupDate < getTodayDateString()) {
+    return { ok: false as const, message: "Noutopaiva ei voi olla menneisyydessa." };
   }
 
   if (!customerName) {
@@ -73,7 +88,9 @@ async function validateOrder(formData: FormData) {
     return { ok: false as const, message: "Valitse vahintaan yksi tuote." };
   }
 
-  const productMap = await getProductMap();
+  const productMap = await getProductMap({
+    activeOnly: options?.activeProductsOnly ?? false
+  });
   const mappedItems = mapItemsWithProductNames(items, productMap);
 
   if (mappedItems.length === 0) {
@@ -96,6 +113,8 @@ async function validateOrder(formData: FormData) {
 function revalidateOrderViews(pickupDate?: string) {
   revalidatePath("/tilaukset");
   revalidatePath("/uusi-tilaus");
+  revalidatePath("/varaa");
+  revalidatePath("/varaa/kiitos");
   revalidatePath("/raportit");
   revalidatePath("/tiivistelma");
   revalidatePath("/asetukset");
@@ -155,6 +174,75 @@ export async function createOrderAction(
 
   revalidateOrderViews(validation.values.pickupDate);
   redirect(`/tilaukset/${validation.values.pickupDate}`);
+}
+
+export async function createPublicBookingAction(
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
+  const honeypot = String(formData.get("website") ?? "").trim();
+  const startedAtRaw = String(formData.get("startedAt") ?? "").trim();
+  const startedAt = Number(startedAtRaw);
+  const now = Date.now();
+
+  if (honeypot) {
+    redirect("/varaa/kiitos");
+  }
+
+  if (!Number.isFinite(startedAt) || now - startedAt < 1500) {
+    return {
+      success: false,
+      message: "Lomakkeen lahetys epaonnistui. Odota hetki ja yrita uudelleen."
+    };
+  }
+
+  const validation = await validateOrder(formData, { activeProductsOnly: true });
+
+  if (!validation.ok) {
+    return { success: false, message: validation.message };
+  }
+
+  if (!hasSupabaseEnv()) {
+    redirect(
+      `/varaa/kiitos?pickup_date=${encodeURIComponent(validation.values.pickupDate)}&customer=${encodeURIComponent(validation.values.customerName)}`
+    );
+  }
+
+  const supabase = await createClient();
+  const { data: order, error: orderError } = await supabase
+    .from("orders")
+    .insert({
+      pickup_date: validation.values.pickupDate,
+      customer_name: validation.values.customerName,
+      phone: validation.values.phone,
+      email: validation.values.email || null,
+      notes: validation.values.notes || null,
+      status: "uusi"
+    })
+    .select("id")
+    .single();
+
+  if (orderError || !order) {
+    return { success: false, message: "Varauksen tallennus epaonnistui. Yrita hetken kuluttua uudelleen." };
+  }
+
+  const { error: itemError } = await supabase.from("order_items").insert(
+    validation.values.items.map((item) => ({
+      order_id: order.id,
+      product_id: item.product_id,
+      product_name: item.product_name,
+      quantity_grams: item.quantity_grams
+    }))
+  );
+
+  if (itemError) {
+    return { success: false, message: "Varauksen tuotteita ei voitu tallentaa." };
+  }
+
+  revalidateOrderViews(validation.values.pickupDate);
+  redirect(
+    `/varaa/kiitos?pickup_date=${encodeURIComponent(validation.values.pickupDate)}&customer=${encodeURIComponent(validation.values.customerName)}`
+  );
 }
 
 export async function updateOrderAction(

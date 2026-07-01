@@ -150,6 +150,11 @@ export async function getProducts(): Promise<Product[]> {
   return (data ?? []) as Product[];
 }
 
+export async function getActiveProducts() {
+  const products = await getProducts();
+  return products.filter((product) => product.active);
+}
+
 export async function getOrderDaySummaries() {
   const orders = await getOrdersWithItems();
   return aggregateDaySummaries(orders);
@@ -195,8 +200,8 @@ export async function getProductionReport(from?: string, to?: string) {
   };
 }
 
-export async function getProductMap() {
-  const products = await getProducts();
+export async function getProductMap(options?: { activeOnly?: boolean }) {
+  const products = options?.activeOnly ? await getActiveProducts() : await getProducts();
   return new Map(products.map((product) => [product.id, product]));
 }
 

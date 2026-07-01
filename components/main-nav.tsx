@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/tilaukset", label: "Tilaukset" },
+  { href: "/varaa", label: "Asiakasvaraus" },
   { href: "/uusi-tilaus", label: "Uusi tilaus" },
   { href: "/raportit", label: "Raportit" },
   { href: "/tiivistelma", label: "Tiivistelma" },
