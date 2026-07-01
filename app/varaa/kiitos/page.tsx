@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { formatPickupDate } from "@/lib/utils/format";
+
+export const metadata: Metadata = {
+  title: "Kalakauppa Forelli | Varaus vastaanotettu",
+  description: "Kalakauppa Forellin ennakkovaraus on vastaanotettu."
+};
 
 type BookingSuccessPageProps = {
   searchParams: Promise<{
@@ -19,7 +25,7 @@ export default async function BookingSuccessPage({
   return (
     <main className="page-stack">
       <PageIntro
-        eyebrow="Varaus vastaanotettu"
+        eyebrow="Kalakauppa Forelli"
         title={customerName ? `Kiitos, ${customerName}` : "Kiitos varauksesta"}
         description={
           pickupDate
