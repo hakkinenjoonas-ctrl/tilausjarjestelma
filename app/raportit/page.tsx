@@ -24,7 +24,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
       <PageIntro
         eyebrow="Raportit"
         title="Laske paljonko kutakin tuotetta tarvitaan"
-        description="Voit hakea joko yhdelle paivalle tai paivamaaravalille yhteenvedon tuotteiden kokonaismaaroista."
+        description="Voit hakea joko yhdelle päivälle tai päivämäärävälille yhteenvedon tuotteiden kokonaismääristä."
       />
 
       <form className="panel filter-grid">
@@ -37,14 +37,14 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
           <input defaultValue={params.to} name="to" type="date" />
         </label>
         <button className="primary-button" type="submit">
-          Paivita raportti
+          Päivitä raportti
         </button>
       </form>
 
       {report.rows.length === 0 ? (
         <EmptyState
-          title="Raporttiin ei loytynyt dataa"
-          description="Valitse paiva tai paivamaaravali, jolle on tallennettu tilauksia."
+          title="Raporttiin ei löytynyt dataa"
+          description="Valitse päivä tai päivämääräväli, jolle on tallennettu tilauksia."
         />
       ) : (
         <>
@@ -76,7 +76,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
           <section className="panel">
             <div className="panel-header">
               <div>
-                <p className="section-label">Sahkopostit</p>
+                <p className="section-label">Sähköpostit</p>
                 <h2>Ajanjaksolla tilanneet asiakkaat</h2>
               </div>
               <div className="inline-actions">
@@ -90,8 +90,8 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
 
             {report.email_contacts.length === 0 ? (
               <EmptyState
-                title="Sahkoposteja ei loytynyt"
-                description="Valitulla aikavalilla ei ole tilauksia, joissa olisi sahkopostiosoite."
+                title="Sähköposteja ei löytynyt"
+                description="Valitulla aikavälillä ei ole tilauksia, joissa olisi sähköpostiosoite."
               />
             ) : (
               <div className="summary-list">

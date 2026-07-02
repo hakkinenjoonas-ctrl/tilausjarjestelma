@@ -52,10 +52,10 @@ function blobToDataUrl(blob: Blob) {
         return;
       }
 
-      reject(new Error("Kuvan muunto data-urliksi epaonnistui."));
+      reject(new Error("Kuvan muunto data-urliksi epäonnistui."));
     };
 
-    reader.onerror = () => reject(new Error("Kuvan lukeminen epaonnistui."));
+    reader.onerror = () => reject(new Error("Kuvan lukeminen epäonnistui."));
     reader.readAsDataURL(blob);
   });
 }
@@ -137,7 +137,7 @@ export function LabelExportLinks({
       const pngResponse = await fetch(pngUrl, { cache: "no-store" });
 
       if (!pngResponse.ok) {
-        throw new Error("Tarrakuvan haku epaonnistui.");
+        throw new Error("Tarrakuvan haku epäonnistui.");
       }
 
       const pngBlob = await pngResponse.blob();
@@ -158,7 +158,7 @@ export function LabelExportLinks({
       const message =
         caughtError instanceof Error
           ? caughtError.message
-          : "PDF:n muodostaminen epaonnistui. Kokeile uudelleen.";
+          : "PDF:n muodostaminen epäonnistui. Kokeile uudelleen.";
 
       setError(message);
     } finally {
@@ -175,7 +175,7 @@ export function LabelExportLinks({
       const pngResponse = await fetch(pngUrl, { cache: "no-store" });
 
       if (!pngResponse.ok) {
-        throw new Error("Tarrakuvan haku epaonnistui.");
+        throw new Error("Tarrakuvan haku epäonnistui.");
       }
 
       const pngBlob = await pngResponse.blob();
@@ -184,7 +184,7 @@ export function LabelExportLinks({
       const message =
         caughtError instanceof Error
           ? caughtError.message
-          : "Kuvan jakaminen epaonnistui. Kokeile avata PNG ensin.";
+          : "Kuvan jakaminen epäonnistui. Kokeile avata PNG ensin.";
 
       setError(message);
     } finally {

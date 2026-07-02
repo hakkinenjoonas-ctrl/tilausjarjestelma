@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 
   if (report.rows.length === 0) {
     return NextResponse.json(
-      { error: "Raporttiin ei loytynyt dataa valitulla aikavalilla." },
+      { error: "Raporttiin ei löytynyt dataa valitulla aikavälillä." },
       { status: 404 }
     );
   }

@@ -17,7 +17,7 @@ export async function GET(request: Request) {
 
   if (report.email_contacts.length === 0) {
     return NextResponse.json(
-      { error: "Sahkoposteja ei loytynyt valitulla aikavalilla." },
+      { error: "Sähköposteja ei löytynyt valitulla aikavälillä." },
       { status: 404 }
     );
   }

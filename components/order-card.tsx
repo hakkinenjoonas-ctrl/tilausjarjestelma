@@ -13,6 +13,19 @@ import { LabelExportLinks } from "./label-export-links";
 
 const statusOptions: OrderStatus[] = ["uusi", "kasittelyssa", "valmis", "noudettu"];
 
+function getStatusLabel(status: OrderStatus) {
+  switch (status) {
+    case "uusi":
+      return "uusi";
+    case "kasittelyssa":
+      return "käsittelyssä";
+    case "valmis":
+      return "valmis";
+    case "noudettu":
+      return "noudettu";
+  }
+}
+
 type OrderCardProps = {
   order: DetailedOrder;
 };
@@ -80,7 +93,7 @@ export function OrderCard({ order }: OrderCardProps) {
               className={`status-button ${order.status === status ? "active" : ""}`}
               type="submit"
             >
-              {status}
+              {getStatusLabel(status)}
             </button>
           </form>
         ))}

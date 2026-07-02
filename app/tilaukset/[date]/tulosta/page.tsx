@@ -53,7 +53,7 @@ export default async function PrintDayPage({
             4x3 tarra
           </Link>
           <Link className="primary-button" href={`/tilaukset/${date}`}>
-            Takaisin paivaan
+            Takaisin päivään
           </Link>
         </div>
       </section>
@@ -87,7 +87,7 @@ export default async function PrintDayPage({
 
           <section className="label-primary-meta">
             <div className="label-meta-box pickup-date-box">
-              <span className="label-meta-label">Noutopaiva</span>
+              <span className="label-meta-label">Noutopäivä</span>
               <strong className="pickup-date-value">{formatPickupDate(order.pickup_date)}</strong>
             </div>
             <div className="label-meta-box">
@@ -96,7 +96,7 @@ export default async function PrintDayPage({
             </div>
             {order.email ? (
               <div className="label-meta-box">
-                <span className="label-meta-label">Sahkoposti</span>
+                <span className="label-meta-label">Sähköposti</span>
                 <strong>{order.email}</strong>
               </div>
             ) : null}
@@ -113,7 +113,7 @@ export default async function PrintDayPage({
 
           {order.notes ? (
             <section className="label-notes">
-              <span className="label-meta-label">Lisatiedot</span>
+              <span className="label-meta-label">Lisätiedot</span>
               <p>{order.notes}</p>
             </section>
           ) : null}

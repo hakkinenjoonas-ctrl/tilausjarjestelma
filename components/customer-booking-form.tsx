@@ -178,7 +178,7 @@ export function CustomerBookingForm({
         </label>
 
         <label className="field field-wide">
-          <span>Lisatiedot</span>
+          <span>Lisätiedot</span>
           <textarea
             name="notes"
             placeholder="Esim. fileenä ilman nahkaa, nouto klo 14 jälkeen"
@@ -311,11 +311,11 @@ export function CustomerBookingForm({
 
       <div className="booking-submit-block">
         <p className="card-copy">
-          Lahettamalla varauksen siirrät tilauksen suoraan Forellin kasittelyyn. Saat vahvistuksen
+          Lähettämällä varauksen siirrät tilauksen suoraan Forellin käsittelyyn. Saat vahvistuksen
           heti seuraavalla sivulla.
         </p>
         <button className="primary-button large" disabled={pending} type="submit">
-          {pending ? "Lahetetaan varausta..." : "Laheta varaus"}
+          {pending ? "Lähetetään varausta..." : "Lähetä varaus"}
         </button>
       </div>
     </form>

@@ -33,6 +33,10 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
   const titleSize = compact ? 32 : 40;
   const pickupDateSize = compact ? 30 : 40;
   const itemSize = compact ? 22 : 24;
+  const statusLabel =
+    order.status === "kasittelyssa"
+      ? "käsittelyssä"
+      : order.status;
 
   return (
     <div
@@ -121,7 +125,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
                 background: "#eef4ff"
               }}
             >
-              {order.status}
+              {statusLabel}
             </div>
             {sequenceLabel ? (
               <div style={{ display: "flex", fontSize: compact ? 14 : 16, color: "#444444" }}>
@@ -146,7 +150,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
             }}
           >
             <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
-              Noutopaiva
+              Noutopäivä
             </div>
             <div style={{ display: "flex", fontSize: pickupDateSize, fontWeight: 800, lineHeight: 1 }}>
               {formatPickupDate(order.pickup_date)}
@@ -189,7 +193,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               }}
             >
               <div style={{ fontSize: compact ? 15 : 16, textTransform: "uppercase", color: "#4b6584" }}>
-                Sahkoposti
+                Sähköposti
               </div>
               <div style={{ display: "flex", fontSize: compact ? 16 : 18, fontWeight: 700 }}>
                 {order.email}

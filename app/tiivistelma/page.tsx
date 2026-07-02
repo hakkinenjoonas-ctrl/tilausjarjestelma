@@ -10,15 +10,15 @@ export default async function SummaryPage() {
   return (
     <main className="page-stack">
       <PageIntro
-        eyebrow="Tiivistelma"
-        title="Valmistettavat maarat paivittain"
-        description="Nakyma kertoo yhdella silmayksella paljonko kutakin tuotetta pitaisi valmistaa jokaiselle noutopaivalle."
+        eyebrow="Tiivistelmä"
+        title="Valmistettavat määrät päivittäin"
+        description="Näkymä kertoo yhdellä silmäyksellä paljonko kutakin tuotetta pitäisi valmistaa jokaiselle noutopäivälle."
       />
 
       {days.length === 0 ? (
         <EmptyState
-          title="Tiivistelmaa ei voida laskea viela"
-          description="Kun tilauksia on tallennettu, paivakohtaiset tuotemaara yhteenvedot tulevat tahan."
+          title="Tiivistelmää ei voida laskea vielä"
+          description="Kun tilauksia on tallennettu, päiväkohtaiset tuotemääräyhteenvedot tulevat tähän."
         />
       ) : (
         <section className="card-stack">
@@ -26,7 +26,7 @@ export default async function SummaryPage() {
             <article className="panel" key={day.pickup_date}>
               <div className="panel-header">
                 <div>
-                  <p className="section-label">Noutopaiva</p>
+                  <p className="section-label">Noutopäivä</p>
                   <h2>{formatPickupDate(day.pickup_date)}</h2>
                 </div>
                 <Link className="ghost-button" href={`/tilaukset/${day.pickup_date}`}>

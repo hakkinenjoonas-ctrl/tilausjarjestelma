@@ -11,14 +11,14 @@ export default async function OrdersPage() {
     <main className="page-stack">
       <PageIntro
         eyebrow="Tilaukset"
-        title="Valitse noutopaiva"
-        description="Etusivu nayttaa vain ne paivat, joille on tilauksia. Yksi painallus avaa paivan kaikki tilaukset."
+        title="Valitse noutopäivä"
+        description="Etusivu näyttää vain ne päivät, joille on tilauksia. Yksi painallus avaa päivän kaikki tilaukset."
       />
 
       {daySummaries.length === 0 ? (
         <EmptyState
-          title="Ei viela tilauksia"
-          description="Luo ensimmainen tilaus, niin noutopaivat alkavat nakya tassa."
+          title="Ei vielä tilauksia"
+          description="Luo ensimmäinen tilaus, niin noutopäivät alkavat näkyä tässä."
           actionHref="/uusi-tilaus"
           actionLabel="Luo uusi tilaus"
         />

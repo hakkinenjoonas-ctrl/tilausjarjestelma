@@ -22,7 +22,7 @@ export function BrandMark({ compact = false, logoOnly = false }: BrandMarkProps)
         <div className="brand-copy-block">
           <p className="brand-overline">Kalakauppa</p>
           <strong>Forelli</strong>
-          <span>Tuoretta lahikalaa</span>
+          <span>Tuoretta lähikalaa</span>
         </div>
       )}
     </div>

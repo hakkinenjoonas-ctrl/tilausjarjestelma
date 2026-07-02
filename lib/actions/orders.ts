@@ -85,7 +85,7 @@ async function validateOrder(
   }
 
   if (items.length === 0) {
-    return { ok: false as const, message: "Valitse vahintaan yksi tuote." };
+    return { ok: false as const, message: "Valitse vähintään yksi tuote." };
   }
 
   const productMap = await getProductMap({
@@ -137,7 +137,7 @@ export async function createOrderAction(
   if (!hasSupabaseEnv()) {
     return {
       success: true,
-      message: "Demo-tilassa tallennusta ei kirjoiteta tietokantaan. Kytke Supabase kayttoon."
+      message: "Demo-tilassa tallennusta ei kirjoiteta tietokantaan. Kytke Supabase käyttöön."
     };
   }
 
@@ -156,7 +156,7 @@ export async function createOrderAction(
     .single();
 
   if (orderError || !order) {
-    return { success: false, message: "Tilauksen tallennus epaonnistui." };
+    return { success: false, message: "Tilauksen tallennus epäonnistui." };
   }
 
   const { error: itemError } = await supabase.from("order_items").insert(
@@ -169,7 +169,7 @@ export async function createOrderAction(
   );
 
   if (itemError) {
-    return { success: false, message: "Tuotteiden tallennus epaonnistui." };
+    return { success: false, message: "Tuotteiden tallennus epäonnistui." };
   }
 
   revalidateOrderViews(validation.values.pickupDate);
@@ -266,7 +266,7 @@ export async function updateOrderAction(
   if (!hasSupabaseEnv()) {
     return {
       success: true,
-      message: "Demo-tilassa muutoksia ei kirjoiteta tietokantaan. Kytke Supabase kayttoon."
+      message: "Demo-tilassa muutoksia ei kirjoiteta tietokantaan. Kytke Supabase käyttöön."
     };
   }
 
@@ -283,7 +283,7 @@ export async function updateOrderAction(
     .eq("id", orderId);
 
   if (orderError) {
-    return { success: false, message: "Tilauksen paivitys epaonnistui." };
+    return { success: false, message: "Tilauksen päivitys epäonnistui." };
   }
 
   const { error: deleteError } = await supabase
@@ -305,7 +305,7 @@ export async function updateOrderAction(
   );
 
   if (itemError) {
-    return { success: false, message: "Uusien tuotteiden tallennus epaonnistui." };
+    return { success: false, message: "Uusien tuotteiden tallennus epäonnistui." };
   }
 
   revalidateOrderViews(validation.values.pickupDate);

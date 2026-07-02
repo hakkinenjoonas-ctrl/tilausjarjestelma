@@ -7,11 +7,11 @@ export default function CustomerOrdersPage() {
       <PageIntro
         eyebrow="Omat varaukset"
         title="Tarkista omat varauksesi"
-        description="Tahan nakymaan tuodaan seuraavaksi asiakkaan omat varaukset ja niiden tarkistaminen."
+        description="Tähän näkymään tuodaan seuraavaksi asiakkaan omat varaukset ja niiden tarkistaminen."
       />
       <EmptyState
         title="Omat varaukset tulossa pian"
-        description="Asiakkaan omien varausten tarkastelu rakennetaan seuraavassa vaiheessa. Talla hetkella voit tehdä uuden varauksen normaalisti."
+        description="Asiakkaan omien varausten tarkastelu rakennetaan seuraavassa vaiheessa. Tällä hetkellä voit tehdä uuden varauksen normaalisti."
         actionHref="/varaa"
         actionLabel="Tee uusi varaus"
       />

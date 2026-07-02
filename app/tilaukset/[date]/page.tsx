@@ -19,13 +19,13 @@ export default async function DayOrdersPage({ params }: DayOrdersPageProps) {
   return (
     <main className="page-stack">
       <PageIntro
-        eyebrow="Paivan tilaukset"
+        eyebrow="Päivän tilaukset"
         title={formatPickupDate(date)}
         description="Muokkaa tilaa nopeasti, poista virheelliset tilaukset tai avaa tilaus muokattavaksi."
         action={
           <div className="inline-actions">
             <Link className="ghost-button" href="/tilaukset">
-              Takaisin paiviin
+              Takaisin päiviin
             </Link>
             <PrintLink pickupDate={date} />
             <Link className="primary-button" href={`/uusi-tilaus?pickup_date=${date}`}>
@@ -37,8 +37,8 @@ export default async function DayOrdersPage({ params }: DayOrdersPageProps) {
 
       {orders.length === 0 ? (
         <EmptyState
-          title="Talle paivalle ei loytynyt tilauksia"
-          description="Voit luoda uuden tilauksen valitulle noutopaivalle."
+          title="Tälle päivälle ei löytynyt tilauksia"
+          description="Voit luoda uuden tilauksen valitulle noutopäivälle."
           actionHref={`/uusi-tilaus?pickup_date=${date}`}
           actionLabel="Luo uusi tilaus"
         />

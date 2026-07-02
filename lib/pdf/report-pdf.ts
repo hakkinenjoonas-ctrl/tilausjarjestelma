@@ -150,7 +150,7 @@ export async function buildReportPdf({
     });
     y -= 26;
 
-    page.drawText("Asiakassahkopostit", {
+    page.drawText("Asiakassähköpostit", {
       x: 48,
       y,
       size: 14,

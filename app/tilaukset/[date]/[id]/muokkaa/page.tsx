@@ -25,10 +25,10 @@ export default async function EditOrderPage({ params }: EditOrderPageProps) {
       <PageIntro
         eyebrow="Muokkaa tilausta"
         title={`Tilaus ${formatPickupDate(date)}`}
-        description="Paivita asiakkaan tiedot, tuotteet tai noutopaiva ilman ylimaaraisia klikkauksia."
+        description="Päivitä asiakkaan tiedot, tuotteet tai noutopäivä ilman ylimääräisiä klikkauksia."
         action={
           <Link className="ghost-button" href={`/tilaukset/${date}`}>
-            Takaisin paivan tilauksiin
+            Takaisin päivän tilauksiin
           </Link>
         }
       />

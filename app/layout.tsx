@@ -4,8 +4,8 @@ import { AppHeader } from "@/components/app-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Forelli tilausjarjestelma",
-  description: "Selainpohjainen tilausjarjestelma Forellin ennakkotilauksille."
+  title: "Forelli tilausjärjestelmä",
+  description: "Selainpohjainen tilausjärjestelmä Forellin ennakkotilauksille."
 };
 
 export default function RootLayout({

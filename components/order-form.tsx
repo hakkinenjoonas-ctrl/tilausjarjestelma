@@ -129,7 +129,7 @@ export function OrderForm({
 
       <div className="form-grid">
         <label className="field">
-          <span>Noutopaiva</span>
+          <span>Noutopäivä</span>
           <input
             defaultValue={order?.pickup_date ?? defaultPickupDate}
             name="pickupDate"
@@ -162,7 +162,7 @@ export function OrderForm({
         </label>
 
         <label className="field">
-          <span>Sahkoposti</span>
+          <span>Sähköposti</span>
           <input
             defaultValue={order?.email ?? ""}
             inputMode="email"
@@ -177,7 +177,7 @@ export function OrderForm({
           <textarea
             defaultValue={order?.notes ?? ""}
             name="notes"
-            placeholder="Esim. fileena ilman nahkaa, nouto klo 14 jalkeen"
+            placeholder="Esim. fileenä ilman nahkaa, nouto klo 14 jälkeen"
             rows={4}
           />
         </label>

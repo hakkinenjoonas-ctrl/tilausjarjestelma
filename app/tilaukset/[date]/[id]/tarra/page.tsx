@@ -48,11 +48,11 @@ export default async function PrintOrderLabelPage({
         <div className="inline-actions">
           <LabelExportLinks date={date} id={id} mode="png" />
           <Link className="primary-button" href={`/tilaukset/${date}`}>
-            Takaisin paivaan
+            Takaisin päivään
           </Link>
         </div>
         <p className="card-copy">
-          403B toimii parhaiten tarkalla 4 tuuman levyisella tarralla. iPhonessa voit jakaa
+          403B toimii parhaiten tarkalla 4 tuuman levyisellä tarralla. iPhonessa voit jakaa
           muodostetun PDF:n suoraan tulostukseen.
         </p>
       </section>
@@ -79,7 +79,7 @@ export default async function PrintOrderLabelPage({
 
         <section className="label-primary-meta">
           <div className="label-meta-box pickup-date-box">
-            <span className="label-meta-label">Noutopaiva</span>
+            <span className="label-meta-label">Noutopäivä</span>
             <strong className="pickup-date-value">{formatPickupDate(order.pickup_date)}</strong>
           </div>
           <div className="label-meta-box">
@@ -88,7 +88,7 @@ export default async function PrintOrderLabelPage({
           </div>
           {order.email ? (
             <div className="label-meta-box">
-              <span className="label-meta-label">Sahkoposti</span>
+              <span className="label-meta-label">Sähköposti</span>
               <strong>{order.email}</strong>
             </div>
           ) : null}
@@ -105,7 +105,7 @@ export default async function PrintOrderLabelPage({
 
         {order.notes ? (
           <section className="label-notes">
-            <span className="label-meta-label">Lisatiedot</span>
+            <span className="label-meta-label">Lisätiedot</span>
             <p>{order.notes}</p>
           </section>
         ) : null}

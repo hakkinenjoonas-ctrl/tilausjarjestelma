@@ -18,7 +18,7 @@ export default async function NewOrderPage({ searchParams }: NewOrderPageProps) 
       <PageIntro
         eyebrow="Uusi tilaus"
         title="Kirjaa tilaus nopeasti"
-        description="Valitse noutopaiva, asiakkaan tiedot ja tuotteet. Tallennus tarkistaa, etta mukana on vahintaan yksi tuote."
+        description="Valitse noutopäivä, asiakkaan tiedot ja tuotteet. Tallennus tarkistaa, että mukana on vähintään yksi tuote."
         action={<Link className="ghost-button" href="/tilaukset">Takaisin tilauksiin</Link>}
       />
       <OrderForm
