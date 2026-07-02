@@ -42,7 +42,7 @@ export function AppHeader() {
             </div>
             <div className="customer-topbar-copy">
               <p className="customer-topbar-kicker">Kalakauppa Forelli</p>
-              <h1>TUORETTA LAHIKALAA</h1>
+              <h1>TUORETTA LÄHIKALAA</h1>
               <p className="customer-topbar-description">
                 Tee ennakkovaraus helposti verkossa ja seuraa omia varauksiasi samasta paikasta.
               </p>

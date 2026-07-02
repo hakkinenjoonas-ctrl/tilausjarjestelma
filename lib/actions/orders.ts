@@ -65,11 +65,11 @@ async function validateOrder(
   const items = parseItems(formData.get("itemsJson"));
 
   if (!pickupDate) {
-    return { ok: false as const, message: "Valitse noutopaiva." };
+    return { ok: false as const, message: "Valitse noutopäivä." };
   }
 
   if (pickupDate < getTodayDateString()) {
-    return { ok: false as const, message: "Noutopaiva ei voi olla menneisyydessa." };
+    return { ok: false as const, message: "Noutopäivä ei voi olla menneisyydessä." };
   }
 
   if (!customerName) {
@@ -81,7 +81,7 @@ async function validateOrder(
   }
 
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { ok: false as const, message: "Sahkopostiosoite ei ole oikeassa muodossa." };
+    return { ok: false as const, message: "Sähköpostiosoite ei ole oikeassa muodossa." };
   }
 
   if (items.length === 0) {
@@ -192,7 +192,7 @@ export async function createPublicBookingAction(
   if (!Number.isFinite(startedAt) || now - startedAt < 1500) {
     return {
       success: false,
-      message: "Lomakkeen lahetys epaonnistui. Odota hetki ja yrita uudelleen."
+      message: "Lomakkeen lähetys epäonnistui. Odota hetki ja yritä uudelleen."
     };
   }
 
@@ -223,7 +223,7 @@ export async function createPublicBookingAction(
     .single();
 
   if (orderError || !order) {
-    return { success: false, message: "Varauksen tallennus epaonnistui. Yrita hetken kuluttua uudelleen." };
+    return { success: false, message: "Varauksen tallennus epäonnistui. Yritä hetken kuluttua uudelleen." };
   }
 
   const { error: itemError } = await supabase.from("order_items").insert(

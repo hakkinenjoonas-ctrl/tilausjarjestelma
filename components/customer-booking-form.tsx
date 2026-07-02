@@ -98,7 +98,7 @@ export function CustomerBookingForm({
 
       <div className="form-grid">
         <label className="field">
-          <span>Noutopaiva</span>
+          <span>Noutopäivä</span>
           <input defaultValue={defaultPickupDate} name="pickupDate" required type="date" />
         </label>
 
@@ -124,7 +124,7 @@ export function CustomerBookingForm({
         </label>
 
         <label className="field">
-          <span>Sahkoposti</span>
+          <span>Sähköposti</span>
           <input
             inputMode="email"
             name="email"
@@ -137,7 +137,7 @@ export function CustomerBookingForm({
           <span>Lisatiedot</span>
           <textarea
             name="notes"
-            placeholder="Esim. fileena ilman nahkaa, nouto klo 14 jalkeen"
+            placeholder="Esim. fileenä ilman nahkaa, nouto klo 14 jälkeen"
             rows={4}
           />
         </label>
@@ -219,7 +219,7 @@ export function CustomerBookingForm({
                         }}
                         type="button"
                       >
-                        Muu maara
+                        Muu määrä
                       </button>
                     </div>
 

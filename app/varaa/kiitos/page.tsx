@@ -29,24 +29,21 @@ export default async function BookingSuccessPage({
         title={customerName ? `Kiitos, ${customerName}` : "Kiitos varauksesta"}
         description={
           pickupDate
-            ? `Varaus kirjattiin noutopaivalle ${formatPickupDate(pickupDate)}. Forelli kasittelee sen mahdollisimman pian.`
-            : "Varaus kirjattiin onnistuneesti. Forelli kasittelee sen mahdollisimman pian."
+            ? `Varaus kirjattiin noutopäivälle ${formatPickupDate(pickupDate)}. Forelli käsittelee sen mahdollisimman pian.`
+            : "Varaus kirjattiin onnistuneesti. Forelli käsittelee sen mahdollisimman pian."
         }
         action={<Link className="primary-button" href="/varaa">Tee uusi varaus</Link>}
       />
 
       <section className="panel success-panel">
-        <h2>Mita seuraavaksi tapahtuu?</h2>
+        <h2>Mitä seuraavaksi tapahtuu?</h2>
         <p className="intro">
-          Varaus on nyt tallessa. Jos Forellilla tarvitsee tarkentaa tuotetta, maaria tai
-          noutoaikaa, sinuun ollaan yhteydessa antamiesi tietojen perusteella.
+          Varaus on nyt tallessa. Jos Forellilla tarvitsee tarkentaa tuotetta, määriä tai
+          noutoaikaa, sinuun ollaan yhteydessä antamiesi tietojen perusteella.
         </p>
         <div className="inline-actions">
           <Link className="ghost-button" href="/varaa">
             Palaa varauslomakkeeseen
-          </Link>
-          <Link className="ghost-button" href="/tilaukset">
-            Avaa hallintanakyma
           </Link>
         </div>
       </section>

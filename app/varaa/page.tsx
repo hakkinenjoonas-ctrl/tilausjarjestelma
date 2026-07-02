@@ -5,7 +5,7 @@ import { getActiveProducts } from "@/lib/data/orders";
 
 export const metadata: Metadata = {
   title: "Kalakauppa Forelli | Ennakkovaraus",
-  description: "Tee Kalakauppa Forellin ennakkovaraus verkossa ja valitse noutopaiva, tuotteet ja yhteystietosi."
+  description: "Tee Kalakauppa Forellin ennakkovaraus verkossa ja valitse noutopäivä, tuotteet ja yhteystietosi."
 };
 
 type BookingPageProps = {
