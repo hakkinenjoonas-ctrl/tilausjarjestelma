@@ -195,10 +195,6 @@ a {
   align-items: center;
 }
 
-.topbar-brand .brand-logo {
-  transform: translateY(6px);
-}
-
 .topbar-copy-block {
   min-width: 0;
   display: flex;

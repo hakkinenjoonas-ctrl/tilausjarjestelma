@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { createPublicBookingAction } from "@/lib/actions/orders";
 import type { Product } from "@/lib/types";
 
@@ -27,8 +27,9 @@ export function CustomerBookingForm({
   products
 }: CustomerBookingFormProps) {
   const [state, formAction, pending] = useActionState(createPublicBookingAction, initialState);
+  const formRef = useRef<HTMLFormElement>(null);
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
-  const [startedAt] = useState(() => String(Date.now()));
+  const [startedAt, setStartedAt] = useState(() => String(Date.now()));
 
   const selectedIds = useMemo(
     () => new Set(selectedItems.map((item) => item.productId)),
@@ -36,6 +37,16 @@ export function CustomerBookingForm({
   );
 
   const selectedProducts = products.filter((product) => selectedIds.has(product.id));
+
+  useEffect(() => {
+    if (!state.success) {
+      return;
+    }
+
+    formRef.current?.reset();
+    setSelectedItems([]);
+    setStartedAt(String(Date.now()));
+  }, [state.success]);
 
   function toggleProduct(productId: string, checked: boolean) {
     setSelectedItems((current) => {
@@ -80,7 +91,7 @@ export function CustomerBookingForm({
   }
 
   return (
-    <form action={formAction} className="panel form-panel public-booking-form">
+    <form action={formAction} className="panel form-panel public-booking-form" ref={formRef}>
       <input name="itemsJson" type="hidden" value={JSON.stringify(selectedItems)} />
       <input name="startedAt" type="hidden" value={startedAt} />
 

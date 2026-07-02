@@ -186,7 +186,7 @@ export async function createPublicBookingAction(
   const now = Date.now();
 
   if (honeypot) {
-    redirect("/varaa/kiitos");
+    return { success: true, message: "Varauksesi on nyt lähetetty." };
   }
 
   if (!Number.isFinite(startedAt) || now - startedAt < 1500) {
@@ -203,9 +203,11 @@ export async function createPublicBookingAction(
   }
 
   if (!hasSupabaseEnv()) {
-    redirect(
-      `/varaa/kiitos?pickup_date=${encodeURIComponent(validation.values.pickupDate)}&customer=${encodeURIComponent(validation.values.customerName)}`
-    );
+    revalidateOrderViews(validation.values.pickupDate);
+    return {
+      success: true,
+      message: "Varauksesi on nyt lähetetty."
+    };
   }
 
   const supabase = await createClient();
@@ -240,9 +242,10 @@ export async function createPublicBookingAction(
   }
 
   revalidateOrderViews(validation.values.pickupDate);
-  redirect(
-    `/varaa/kiitos?pickup_date=${encodeURIComponent(validation.values.pickupDate)}&customer=${encodeURIComponent(validation.values.customerName)}`
-  );
+  return {
+    success: true,
+    message: "Varauksesi on nyt lähetetty."
+  };
 }
 
 export async function updateOrderAction(
