@@ -55,8 +55,10 @@ export function AppHeader() {
             <div className="topbar-brand">
               <BrandMark logoOnly />
             </div>
+            <div className="topbar-copy-block">
+              <h1>Ennakkotilausten hallinta</h1>
+            </div>
           </div>
-          <h1>Ennakkotilausten hallinta</h1>
         </header>
       )}
 

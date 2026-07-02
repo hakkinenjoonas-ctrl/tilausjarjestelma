@@ -183,13 +183,24 @@ a {
 }
 
 .topbar-shell {
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   gap: 24px;
 }
 
 .topbar-brand {
   flex: 0 0 auto;
+}
+
+.topbar-copy-block {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-copy-block h1 {
+  font-size: clamp(2.2rem, 5vw, 4.3rem);
+  line-height: 0.95;
 }
 
 .brand-mark {
@@ -814,6 +825,7 @@ a {
 @media (max-width: 960px) {
   .topbar-shell {
     flex-direction: row;
+    gap: 18px;
   }
 
   .customer-topbar-shell {
@@ -872,6 +884,15 @@ a {
 
   .brand-mark {
     align-items: flex-start;
+  }
+
+  .topbar-shell {
+    gap: 14px;
+  }
+
+  .topbar-copy-block h1 {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    line-height: 0.96;
   }
 
   .brand-copy-block strong {
