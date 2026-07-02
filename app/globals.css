@@ -104,9 +104,10 @@ a {
 .customer-topbar-logo-wrap {
   display: grid;
   place-items: center;
-  padding: 0;
+  padding: 10px;
   border-radius: 32px;
-  background: transparent;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.52) 54%, rgba(255, 255, 255, 0) 74%);
   border: none;
   box-shadow: none;
 }
@@ -115,6 +116,7 @@ a {
   width: min(100%, 188px);
   height: auto;
   object-fit: contain;
+  mix-blend-mode: multiply;
   filter: drop-shadow(0 14px 28px rgba(13, 55, 116, 0.08));
 }
 
@@ -819,8 +821,13 @@ a {
   }
 
   .customer-topbar-logo-wrap {
-    justify-self: start;
+    justify-self: center;
     width: min(100%, 240px);
+  }
+
+  .customer-topbar-copy {
+    text-align: center;
+    justify-items: center;
   }
 
   .main-nav {
@@ -844,6 +851,15 @@ a {
   .empty-state,
   .day-card {
     padding: 18px;
+  }
+
+  .customer-topbar {
+    padding: 22px 18px;
+  }
+
+  .customer-topbar-logo-wrap {
+    width: min(100%, 220px);
+    padding: 8px;
   }
 
   .customer-topbar-copy h1 {
