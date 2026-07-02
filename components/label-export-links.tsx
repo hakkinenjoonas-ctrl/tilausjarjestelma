@@ -7,6 +7,7 @@ type LabelExportLinksProps = {
   date: string;
   id: string;
   mode?: "preview" | "png";
+  previewLabel?: string;
 };
 
 type LabelSize = "4x6" | "4x3";
@@ -107,7 +108,8 @@ function openPng(url: string) {
 export function LabelExportLinks({
   date,
   id,
-  mode = "preview"
+  mode = "preview",
+  previewLabel = "Tulosta asiakaskortti"
 }: LabelExportLinksProps) {
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -117,7 +119,7 @@ export function LabelExportLinks({
   if (mode === "preview") {
     return (
       <Link className="ghost-button" href={`/tilaukset/${date}/${id}/tarra`} target="_blank">
-        Nayta etiketin esikatselu
+        {previewLabel}
       </Link>
     );
   }
