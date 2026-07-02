@@ -8,7 +8,6 @@ import { BrandMark } from "@/components/brand-mark";
 
 const adminNavItems = [
   { href: "/tilaukset", label: "Tilaukset" },
-  { href: "/varaa", label: "Asiakasvaraus" },
   { href: "/uusi-tilaus", label: "Uusi tilaus" },
   { href: "/raportit", label: "Raportit" },
   { href: "/tiivistelma", label: "Tiivistelma" },
