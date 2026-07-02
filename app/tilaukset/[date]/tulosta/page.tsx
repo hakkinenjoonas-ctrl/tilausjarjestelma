@@ -71,7 +71,7 @@ export default async function PrintDayPage({
                 alt="Kalakauppa Forelli"
                 className="label-corner-logo"
                 height={72}
-                src="/brand-logo.png"
+                src="/brand-logo-transparent.png"
                 width={72}
               />
               <span className={`label-status ${order.status}`}>{order.status}</span>

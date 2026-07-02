@@ -70,7 +70,7 @@ export default async function PrintOrderLabelPage({
               className="label-corner-logo"
               height={72}
               priority
-              src="/brand-logo.png"
+              src="/brand-logo-transparent.png"
               width={72}
             />
             <span className={`label-status ${order.status}`}>{order.status}</span>

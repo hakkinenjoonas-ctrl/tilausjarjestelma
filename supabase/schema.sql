@@ -56,47 +56,53 @@ alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 
 drop policy if exists "Authenticated users can read products" on public.products;
-create policy "Authenticated users can read products"
+drop policy if exists "Public users can read products" on public.products;
+create policy "Public users can read products"
 on public.products
 for select
-to authenticated
+to public
 using (true);
 
 drop policy if exists "Authenticated users can manage products" on public.products;
-create policy "Authenticated users can manage products"
+drop policy if exists "Public users can manage products" on public.products;
+create policy "Public users can manage products"
 on public.products
 for all
-to authenticated
+to public
 using (true)
 with check (true);
 
 drop policy if exists "Authenticated users can read orders" on public.orders;
-create policy "Authenticated users can read orders"
+drop policy if exists "Public users can read orders" on public.orders;
+create policy "Public users can read orders"
 on public.orders
 for select
-to authenticated
+to public
 using (true);
 
 drop policy if exists "Authenticated users can manage orders" on public.orders;
-create policy "Authenticated users can manage orders"
+drop policy if exists "Public users can manage orders" on public.orders;
+create policy "Public users can manage orders"
 on public.orders
 for all
-to authenticated
+to public
 using (true)
 with check (true);
 
 drop policy if exists "Authenticated users can read order items" on public.order_items;
-create policy "Authenticated users can read order items"
+drop policy if exists "Public users can read order items" on public.order_items;
+create policy "Public users can read order items"
 on public.order_items
 for select
-to authenticated
+to public
 using (true);
 
 drop policy if exists "Authenticated users can manage order items" on public.order_items;
-create policy "Authenticated users can manage order items"
+drop policy if exists "Public users can manage order items" on public.order_items;
+create policy "Public users can manage order items"
 on public.order_items
 for all
-to authenticated
+to public
 using (true)
 with check (true);
 

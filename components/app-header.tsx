@@ -36,7 +36,7 @@ export function AppHeader() {
                 className="customer-topbar-logo"
                 height={188}
                 priority
-                src="/brand-logo.png"
+                src="/brand-logo-transparent.png"
                 width={188}
               />
             </div>

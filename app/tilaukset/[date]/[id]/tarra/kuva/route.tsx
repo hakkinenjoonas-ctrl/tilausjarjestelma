@@ -55,7 +55,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   const { width, height } = getLabelDimensions(size);
-  const logoSrc = new URL("/brand-logo.png", request.url).toString();
+  const logoSrc = new URL("/brand-logo-transparent.png", request.url).toString();
 
   return new ImageResponse(<OrderLabel logoSrc={logoSrc} order={order} size={size} />, {
     width,

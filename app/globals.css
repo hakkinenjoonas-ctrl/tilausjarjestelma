@@ -116,7 +116,6 @@ a {
   width: min(100%, 188px);
   height: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
   filter: drop-shadow(0 14px 28px rgba(13, 55, 116, 0.08));
 }
 
@@ -225,6 +224,7 @@ a {
 .brand-logo {
   width: auto;
   height: auto;
+  object-fit: contain;
 }
 
 .brand-copy-block {
@@ -492,7 +492,7 @@ a {
   inset: auto -8px -8px auto;
   width: 108px;
   height: 108px;
-  background-image: url("/brand-logo.png");
+  background-image: url("/brand-logo-transparent.png");
   background-repeat: no-repeat;
   background-size: contain;
   opacity: 0.025;
@@ -606,7 +606,7 @@ a {
   padding: 18px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(243, 248, 253, 0.88)),
-    url("/brand-logo.png");
+    url("/brand-logo-transparent.png");
   background-repeat: no-repeat;
   background-position: right 16px bottom 14px;
   background-size: 72px;
@@ -625,7 +625,7 @@ a {
   border-color: rgba(24, 72, 143, 0.3);
   background:
     linear-gradient(180deg, rgba(239, 245, 253, 0.98), rgba(229, 239, 250, 0.92)),
-    url("/brand-logo.png");
+    url("/brand-logo-transparent.png");
   background-repeat: no-repeat;
   background-position: right 16px bottom 14px;
   background-size: 72px;

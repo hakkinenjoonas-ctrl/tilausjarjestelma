@@ -14,7 +14,7 @@ export function BrandMark({ compact = false, logoOnly = false }: BrandMarkProps)
           className="brand-logo"
           height={compact ? 68 : 92}
           priority
-          src="/brand-logo.png"
+          src="/brand-logo-transparent.png"
           width={compact ? 68 : 92}
         />
       </div>
