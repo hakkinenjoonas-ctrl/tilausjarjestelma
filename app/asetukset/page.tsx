@@ -9,8 +9,8 @@ export default async function SettingsPage() {
     <main className="page-stack">
       <PageIntro
         eyebrow="Asetukset"
-        title="Hallinnoi tuoterekisteria"
-        description="Tuotteet haetaan aina tietokannasta. Tasta nakymasta on helppo lisaa tai poistaa sesonkituotteita ilman koodimuutoksia."
+        title="Hallinnoi tuoterekisteriä"
+        description="Tuotteet haetaan aina tietokannasta. Tästä näkymästä on helppo lisätä tai piilottaa sesonkituotteita ilman koodimuutoksia."
       />
       <ProductSettings products={products} />
     </main>

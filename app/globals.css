@@ -545,6 +545,50 @@ a {
   border: 1px solid rgba(13, 55, 116, 0.08);
 }
 
+.product-status-row {
+  gap: 14px;
+}
+
+.product-row-active {
+  border-color: rgba(46, 125, 80, 0.22);
+  background: linear-gradient(180deg, rgba(246, 252, 248, 0.96), rgba(237, 248, 241, 0.9));
+}
+
+.product-row-inactive {
+  border-color: rgba(156, 106, 18, 0.22);
+  background: linear-gradient(180deg, rgba(255, 252, 245, 0.96), rgba(250, 245, 232, 0.9));
+}
+
+.product-status-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.product-state-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.product-state-pill.active {
+  color: var(--success);
+  background: rgba(46, 125, 80, 0.12);
+  border-color: rgba(46, 125, 80, 0.2);
+}
+
+.product-state-pill.inactive {
+  color: var(--warning);
+  background: rgba(209, 171, 74, 0.18);
+  border-color: rgba(156, 106, 18, 0.22);
+}
+
 .summary-contact,
 .summary-contact-meta {
   display: grid;
