@@ -191,6 +191,12 @@ a {
 
 .topbar-brand {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-brand .brand-logo {
+  transform: translateY(6px);
 }
 
 .topbar-copy-block {
