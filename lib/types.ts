@@ -8,6 +8,17 @@ export type Product = {
   created_at: string;
 };
 
+export type DailyFeaturedProduct = {
+  id: string;
+  product_name: string;
+  price: string;
+  fishing_area: string;
+  visible_from: string;
+  visible_to: string;
+  created_at: string;
+  updated_at: string;
+};
+
 export type OrderItem = {
   id: string;
   order_id: string;

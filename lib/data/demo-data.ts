@@ -1,4 +1,19 @@
-import type { DetailedOrder, Product } from "@/lib/types";
+import type { DailyFeaturedProduct, DetailedOrder, Product } from "@/lib/types";
+
+function getTodayDateString() {
+  return new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Helsinki"
+  }).format(new Date());
+}
+
+function getTomorrowDateString() {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  return new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Helsinki"
+  }).format(tomorrow);
+}
 
 export const demoProducts: Product[] = [
   "Savumerilohi",
@@ -89,3 +104,14 @@ export const demoOrders: DetailedOrder[] = [
     ]
   }
 ];
+
+export const demoDailyFeaturedProduct: DailyFeaturedProduct = {
+  id: "default",
+  product_name: "Päivän siikafilee",
+  price: "29,90 €/kg",
+  fishing_area: "Pihlajavesi",
+  visible_from: getTodayDateString(),
+  visible_to: getTomorrowDateString(),
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString()
+};

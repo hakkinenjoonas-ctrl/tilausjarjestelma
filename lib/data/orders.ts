@@ -1,7 +1,12 @@
 import { hasSupabaseEnv } from "@/lib/env";
 import { createReadOnlyClient } from "@/lib/supabase/read-only";
-import { demoOrders, demoProducts } from "@/lib/data/demo-data";
+import {
+  demoDailyFeaturedProduct,
+  demoOrders,
+  demoProducts
+} from "@/lib/data/demo-data";
 import type {
+  DailyFeaturedProduct,
   DetailedOrder,
   OrderDaySummary,
   OrderItem,
@@ -153,6 +158,26 @@ export async function getProducts(): Promise<Product[]> {
 export async function getActiveProducts() {
   const products = await getProducts();
   return products.filter((product) => product.active);
+}
+
+export async function getDailyFeaturedProductConfig(): Promise<DailyFeaturedProduct | null> {
+  if (!hasSupabaseEnv()) {
+    return demoDailyFeaturedProduct;
+  }
+
+  const supabase = createReadOnlyClient();
+  const { data, error } = await supabase
+    .from("daily_featured_product")
+    .select("id, product_name, price, fishing_area, visible_from, visible_to, created_at, updated_at")
+    .eq("id", "default")
+    .maybeSingle();
+
+  if (error) {
+    console.error("Failed to fetch daily featured product", error);
+    return null;
+  }
+
+  return (data as DailyFeaturedProduct | null) ?? null;
 }
 
 export async function getOrderDaySummaries() {

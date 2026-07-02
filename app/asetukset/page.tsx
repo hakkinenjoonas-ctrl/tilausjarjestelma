@@ -1,9 +1,12 @@
 import { PageIntro } from "@/components/page-intro";
 import { ProductSettings } from "@/components/product-settings";
-import { getProducts } from "@/lib/data/orders";
+import { getDailyFeaturedProductConfig, getProducts } from "@/lib/data/orders";
 
 export default async function SettingsPage() {
-  const products = await getProducts();
+  const [products, featuredProduct] = await Promise.all([
+    getProducts(),
+    getDailyFeaturedProductConfig()
+  ]);
 
   return (
     <main className="page-stack">
@@ -12,7 +15,7 @@ export default async function SettingsPage() {
         title="Hallinnoi tuoterekisteriä"
         description="Tuotteet haetaan aina tietokannasta. Tästä näkymästä on helppo lisätä tai piilottaa sesonkituotteita ilman koodimuutoksia."
       />
-      <ProductSettings products={products} />
+      <ProductSettings featuredProduct={featuredProduct} products={products} />
     </main>
   );
 }

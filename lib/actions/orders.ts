@@ -392,3 +392,50 @@ export async function toggleProductActiveAction(formData: FormData) {
 
   revalidateOrderViews();
 }
+
+export async function upsertDailyFeaturedProductAction(formData: FormData) {
+  const productName = String(formData.get("productName") ?? "").trim();
+  const price = String(formData.get("price") ?? "").trim();
+  const fishingArea = String(formData.get("fishingArea") ?? "").trim();
+  const visibleFrom = getTodayDateString();
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const visibleTo = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Europe/Helsinki"
+  }).format(tomorrow);
+
+  if (!productName || !price || !fishingArea) {
+    return;
+  }
+
+  if (!hasSupabaseEnv()) {
+    revalidateOrderViews();
+    return;
+  }
+
+  const supabase = await createClient();
+  await supabase.from("daily_featured_product").upsert(
+    {
+      id: "default",
+      product_name: productName,
+      price,
+      fishing_area: fishingArea,
+      visible_from: visibleFrom,
+      visible_to: visibleTo
+    },
+    { onConflict: "id" }
+  );
+
+  revalidateOrderViews();
+}
+
+export async function removeDailyFeaturedProductAction() {
+  if (!hasSupabaseEnv()) {
+    revalidateOrderViews();
+    return;
+  }
+
+  const supabase = await createClient();
+  await supabase.from("daily_featured_product").delete().eq("id", "default");
+  revalidateOrderViews();
+}

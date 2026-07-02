@@ -30,6 +30,17 @@ create table if not exists public.order_items (
   quantity_grams integer not null check (quantity_grams > 0)
 );
 
+create table if not exists public.daily_featured_product (
+  id text primary key default 'default' check (id = 'default'),
+  product_name text not null,
+  price text not null,
+  fishing_area text not null,
+  visible_from date not null default current_date,
+  visible_to date not null default (current_date + 1),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -46,6 +57,12 @@ before update on public.orders
 for each row
 execute function public.set_updated_at();
 
+drop trigger if exists set_daily_featured_product_updated_at on public.daily_featured_product;
+create trigger set_daily_featured_product_updated_at
+before update on public.daily_featured_product
+for each row
+execute function public.set_updated_at();
+
 create index if not exists orders_pickup_date_idx on public.orders (pickup_date);
 create index if not exists orders_status_idx on public.orders (status);
 create index if not exists order_items_order_id_idx on public.order_items (order_id);
@@ -54,6 +71,7 @@ create index if not exists products_active_sort_idx on public.products (active, 
 alter table public.products enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
+alter table public.daily_featured_product enable row level security;
 
 drop policy if exists "Authenticated users can read products" on public.products;
 drop policy if exists "Public users can read products" on public.products;
@@ -101,6 +119,21 @@ drop policy if exists "Authenticated users can manage order items" on public.ord
 drop policy if exists "Public users can manage order items" on public.order_items;
 create policy "Public users can manage order items"
 on public.order_items
+for all
+to public
+using (true)
+with check (true);
+
+drop policy if exists "Public users can read daily featured product" on public.daily_featured_product;
+create policy "Public users can read daily featured product"
+on public.daily_featured_product
+for select
+to public
+using (true);
+
+drop policy if exists "Public users can manage daily featured product" on public.daily_featured_product;
+create policy "Public users can manage daily featured product"
+on public.daily_featured_product
 for all
 to public
 using (true)

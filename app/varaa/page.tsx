@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CustomerBookingForm } from "@/components/customer-booking-form";
 import { EmptyState } from "@/components/empty-state";
-import { getActiveProducts } from "@/lib/data/orders";
+import { getActiveProducts, getDailyFeaturedProductConfig } from "@/lib/data/orders";
 
 export const metadata: Metadata = {
   title: "Kalakauppa Forelli | Ennakkovaraus",
@@ -16,13 +16,20 @@ type BookingPageProps = {
 
 export default async function BookingPage({ searchParams }: BookingPageProps) {
   const params = await searchParams;
-  const products = await getActiveProducts();
+  const [products, featuredProduct] = await Promise.all([
+    getActiveProducts(),
+    getDailyFeaturedProductConfig()
+  ]);
 
   return (
     <main className="page-stack">
       {products.length > 0 ? (
         <div id="varauslomake">
-          <CustomerBookingForm defaultPickupDate={params.pickup_date} products={products} />
+          <CustomerBookingForm
+            defaultPickupDate={params.pickup_date}
+            featuredProduct={featuredProduct}
+            products={products}
+          />
         </div>
       ) : (
         <EmptyState

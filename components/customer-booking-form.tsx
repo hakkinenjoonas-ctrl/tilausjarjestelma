@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
 import { createPublicBookingAction } from "@/lib/actions/orders";
-import type { Product } from "@/lib/types";
+import type { DailyFeaturedProduct, Product } from "@/lib/types";
 
 const quickAmounts = [100, 200, 300, 400, 500, 600] as const;
 
@@ -14,6 +14,7 @@ type SelectedItem = {
 
 type CustomerBookingFormProps = {
   defaultPickupDate?: string;
+  featuredProduct: DailyFeaturedProduct | null;
   products: Product[];
 };
 
@@ -24,12 +25,14 @@ const initialState = {
 
 export function CustomerBookingForm({
   defaultPickupDate,
+  featuredProduct,
   products
 }: CustomerBookingFormProps) {
   const [state, formAction, pending] = useActionState(createPublicBookingAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
   const [startedAt, setStartedAt] = useState(() => String(Date.now()));
+  const [pickupDate, setPickupDate] = useState(defaultPickupDate ?? "");
 
   const selectedIds = useMemo(
     () => new Set(selectedItems.map((item) => item.productId)),
@@ -37,6 +40,18 @@ export function CustomerBookingForm({
   );
 
   const selectedProducts = products.filter((product) => selectedIds.has(product.id));
+  const todayDate = useMemo(
+    () =>
+      new Intl.DateTimeFormat("sv-SE", {
+        timeZone: "Europe/Helsinki"
+      }).format(new Date()),
+    []
+  );
+  const effectivePickupDate = pickupDate || defaultPickupDate || todayDate;
+  const showFeaturedProduct =
+    featuredProduct &&
+    effectivePickupDate >= featuredProduct.visible_from &&
+    effectivePickupDate <= featuredProduct.visible_to;
 
   useEffect(() => {
     if (!state.success) {
@@ -46,7 +61,8 @@ export function CustomerBookingForm({
     formRef.current?.reset();
     setSelectedItems([]);
     setStartedAt(String(Date.now()));
-  }, [state.success]);
+    setPickupDate(defaultPickupDate ?? "");
+  }, [defaultPickupDate, state.success]);
 
   function toggleProduct(productId: string, checked: boolean) {
     setSelectedItems((current) => {
@@ -107,10 +123,27 @@ export function CustomerBookingForm({
         type="text"
       />
 
+      {showFeaturedProduct ? (
+        <section className="featured-product-banner" aria-live="polite">
+          <p className="featured-product-banner-title">Päivän tuote</p>
+          <div className="featured-product-banner-content">
+            <strong>{featuredProduct.product_name}</strong>
+            <span>{featuredProduct.price}</span>
+            <span>Pyyntialue: {featuredProduct.fishing_area}</span>
+          </div>
+        </section>
+      ) : null}
+
       <div className="form-grid">
         <label className="field">
           <span>Noutopäivä</span>
-          <input defaultValue={defaultPickupDate} name="pickupDate" required type="date" />
+          <input
+            name="pickupDate"
+            onChange={(event) => setPickupDate(event.target.value)}
+            required
+            type="date"
+            value={pickupDate}
+          />
         </label>
 
         <label className="field">

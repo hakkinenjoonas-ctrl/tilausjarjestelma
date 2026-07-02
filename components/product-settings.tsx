@@ -1,13 +1,90 @@
-import { addProductAction, toggleProductActiveAction } from "@/lib/actions/orders";
-import type { Product } from "@/lib/types";
+import {
+  addProductAction,
+  removeDailyFeaturedProductAction,
+  toggleProductActiveAction,
+  upsertDailyFeaturedProductAction
+} from "@/lib/actions/orders";
+import type { DailyFeaturedProduct, Product } from "@/lib/types";
 
 type ProductSettingsProps = {
+  featuredProduct: DailyFeaturedProduct | null;
   products: Product[];
 };
 
-export function ProductSettings({ products }: ProductSettingsProps) {
+export function ProductSettings({ featuredProduct, products }: ProductSettingsProps) {
   return (
     <section className="settings-grid">
+      <article className="panel featured-product-settings">
+        <div className="panel-header">
+          <div>
+            <p className="section-label">Päivän tuote</p>
+            <h2>Asiakaspuolen nosto</h2>
+            <p className="card-copy">
+              Täytetty päivän tuote näkyy asiakaspuolen varausnäkymässä lisäyspäivänä ja
+              seuraavana päivänä.
+            </p>
+          </div>
+        </div>
+
+        {featuredProduct ? (
+          <div className="featured-product-preview">
+            <div>
+              <p className="featured-product-eyebrow">Voimassa</p>
+              <strong>
+                {featuredProduct.visible_from} - {featuredProduct.visible_to}
+              </strong>
+            </div>
+            <div className="featured-product-meta">
+              <span>{featuredProduct.product_name}</span>
+              <span>{featuredProduct.price}</span>
+              <span>Pyyntialue: {featuredProduct.fishing_area}</span>
+            </div>
+            <form action={removeDailyFeaturedProductAction}>
+              <button className="ghost-button" type="submit">
+                Poista päivän tuote
+              </button>
+            </form>
+          </div>
+        ) : null}
+
+        <form action={upsertDailyFeaturedProductAction} className="form-grid">
+          <label className="field">
+            <span>Tuote</span>
+            <input
+              defaultValue={featuredProduct?.product_name ?? ""}
+              name="productName"
+              required
+              type="text"
+            />
+          </label>
+          <label className="field">
+            <span>Hinta</span>
+            <input
+              defaultValue={featuredProduct?.price ?? ""}
+              name="price"
+              placeholder="Esim. 29,90 €/kg"
+              required
+              type="text"
+            />
+          </label>
+          <label className="field field-wide">
+            <span>Pyyntialue</span>
+            <input
+              defaultValue={featuredProduct?.fishing_area ?? ""}
+              name="fishingArea"
+              placeholder="Esim. Pihlajavesi"
+              required
+              type="text"
+            />
+          </label>
+          <div className="form-footer">
+            <button className="primary-button" type="submit">
+              Tallenna päivän tuote
+            </button>
+          </div>
+        </form>
+      </article>
+
       <article className="panel">
         <div className="panel-header">
           <div>
