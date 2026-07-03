@@ -225,7 +225,10 @@ export function OrderForm({
                       onChange={(event) => toggleProduct(product.id, event.target.checked)}
                       type="checkbox"
                     />
-                    <strong>{product.name}</strong>
+                    <div className="product-card-copy">
+                      <strong>{product.name}</strong>
+                      {product.price ? <span>{product.price}</span> : null}
+                    </div>
                   </div>
                   <span className={`selection-state ${selected ? "on" : ""}`}>
                     {selected ? "Valittu" : "Ei valittu"}

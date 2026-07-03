@@ -90,6 +90,13 @@ a {
     radial-gradient(circle at top right, rgba(107, 164, 217, 0.14), transparent 40%);
 }
 
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 176px;
+}
+
 .customer-topbar {
   padding: 34px;
 }
@@ -187,6 +194,11 @@ a {
   justify-content: center;
   gap: 24px;
   width: 100%;
+}
+
+.admin-topbar .topbar-shell {
+  flex: 1 1 auto;
+  min-height: 100%;
 }
 
 .topbar-brand {
@@ -561,6 +573,14 @@ a {
   min-width: 0;
 }
 
+.product-edit-form {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.4fr) minmax(140px, 0.9fr) minmax(110px, 0.5fr) auto;
+  gap: 12px;
+  align-items: end;
+  flex: 1 1 720px;
+}
+
 .product-state-pill {
   display: inline-flex;
   align-items: center;
@@ -677,6 +697,17 @@ a {
   justify-content: space-between;
   gap: 12px;
   align-items: center;
+}
+
+.product-card-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.product-card-copy span {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .product-card.selected {

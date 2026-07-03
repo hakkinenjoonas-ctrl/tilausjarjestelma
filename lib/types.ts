@@ -3,6 +3,7 @@ export type OrderStatus = "uusi" | "kasittelyssa" | "valmis" | "noudettu";
 export type Product = {
   id: string;
   name: string;
+  price: string | null;
   active: boolean;
   sort_order: number;
   created_at: string;

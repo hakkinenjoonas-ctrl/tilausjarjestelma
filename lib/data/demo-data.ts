@@ -30,6 +30,7 @@ export const demoProducts: Product[] = [
 ].map((name, index) => ({
   id: `demo-product-${index + 1}`,
   name,
+  price: `${19 + index},90 €/kg`,
   active: true,
   sort_order: index + 1,
   created_at: new Date().toISOString()

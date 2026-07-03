@@ -49,7 +49,7 @@ export function AppHeader() {
           </div>
         </header>
       ) : (
-        <header className="topbar">
+        <header className="topbar admin-topbar">
           <div className="topbar-shell">
             <div className="topbar-brand">
               <BrandMark logoOnly />

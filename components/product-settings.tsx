@@ -2,6 +2,7 @@ import {
   addProductAction,
   removeDailyFeaturedProductAction,
   toggleProductActiveAction,
+  updateProductAction,
   upsertDailyFeaturedProductAction
 } from "@/lib/actions/orders";
 import type { DailyFeaturedProduct, Product } from "@/lib/types";
@@ -101,12 +102,29 @@ export function ProductSettings({ featuredProduct, products }: ProductSettingsPr
               className={`product-row product-status-row ${product.active ? "product-row-active" : "product-row-inactive"}`}
               key={product.id}
             >
-              <div className="product-status-copy">
-                <strong>{product.name}</strong>
-                <p className="card-copy">
-                  Järjestys {product.sort_order}
-                </p>
-              </div>
+              <form action={updateProductAction} className="product-edit-form">
+                <input name="productId" type="hidden" value={product.id} />
+                <label className="field">
+                  <span>Tuote</span>
+                  <input defaultValue={product.name} name="name" required type="text" />
+                </label>
+                <label className="field">
+                  <span>Hinta</span>
+                  <input
+                    defaultValue={product.price ?? ""}
+                    name="price"
+                    placeholder="Esim. 29,90 €/kg"
+                    type="text"
+                  />
+                </label>
+                <label className="field">
+                  <span>Järjestys</span>
+                  <input defaultValue={product.sort_order} min={0} name="sortOrder" type="number" />
+                </label>
+                <button className="ghost-button" type="submit">
+                  Tallenna muutokset
+                </button>
+              </form>
               <span
                 className={`product-state-pill ${product.active ? "active" : "inactive"}`}
               >
@@ -135,6 +153,10 @@ export function ProductSettings({ featuredProduct, products }: ProductSettingsPr
           <label className="field field-wide">
             <span>Tuotteen nimi</span>
             <input name="name" required type="text" />
+          </label>
+          <label className="field">
+            <span>Hinta</span>
+            <input name="price" placeholder="Esim. 29,90 €/kg" type="text" />
           </label>
           <label className="field">
             <span>Järjestys</span>

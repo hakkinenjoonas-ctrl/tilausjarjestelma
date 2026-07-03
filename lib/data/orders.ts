@@ -143,7 +143,7 @@ export async function getProducts(): Promise<Product[]> {
   const supabase = createReadOnlyClient();
   const { data, error } = await supabase
     .from("products")
-    .select("id, name, active, sort_order, created_at")
+    .select("id, name, price, active, sort_order, created_at")
     .order("sort_order", { ascending: true })
     .order("name", { ascending: true });
 

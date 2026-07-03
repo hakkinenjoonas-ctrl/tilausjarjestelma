@@ -3,10 +3,13 @@ create extension if not exists "pgcrypto";
 create table if not exists public.products (
   id uuid primary key default gen_random_uuid(),
   name text not null unique,
+  price text,
   active boolean not null default true,
   sort_order integer not null default 0,
   created_at timestamptz not null default now()
 );
+
+alter table public.products add column if not exists price text;
 
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),

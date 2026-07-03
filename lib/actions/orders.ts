@@ -353,6 +353,7 @@ export async function deleteOrderAction(formData: FormData) {
 
 export async function addProductAction(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
+  const price = String(formData.get("price") ?? "").trim();
   const sortOrder = Number(formData.get("sortOrder") ?? 0);
 
   if (!name) {
@@ -367,9 +368,35 @@ export async function addProductAction(formData: FormData) {
   const supabase = await createClient();
   await supabase.from("products").insert({
     name,
+    price: price || null,
     sort_order: Number.isFinite(sortOrder) ? sortOrder : 0,
     active: true
   });
+
+  revalidateOrderViews();
+}
+
+export async function updateProductAction(formData: FormData) {
+  const productId = String(formData.get("productId") ?? "").trim();
+  const name = String(formData.get("name") ?? "").trim();
+  const price = String(formData.get("price") ?? "").trim();
+  const sortOrder = Number(formData.get("sortOrder") ?? 0);
+
+  if (!productId || !name) {
+    return;
+  }
+
+  if (!hasSupabaseEnv()) {
+    revalidateOrderViews();
+    return;
+  }
+
+  const supabase = await createClient();
+  await supabase.from("products").update({
+    name,
+    price: price || null,
+    sort_order: Number.isFinite(sortOrder) ? sortOrder : 0
+  }).eq("id", productId);
 
   revalidateOrderViews();
 }
