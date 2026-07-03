@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
-import { BrandMark } from "@/components/brand-mark";
 
 const adminNavItems = [
   { href: "/tilaukset", label: "Tilaukset" },
@@ -51,9 +50,6 @@ export function AppHeader() {
       ) : (
         <header className="topbar admin-topbar">
           <div className="topbar-shell">
-            <div className="topbar-brand">
-              <BrandMark logoOnly />
-            </div>
             <div className="topbar-copy-block">
               <h1>Ennakkotilausten hallinta</h1>
             </div>
