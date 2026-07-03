@@ -46,7 +46,7 @@ export default async function PrintOrderLabelPage({
           </p>
         </div>
         <div className="inline-actions">
-          <LabelExportLinks date={date} id={id} mode="png" />
+          <LabelExportLinks date={date} id={id} mode="sizes" />
           <Link className="primary-button" href={`/tilaukset/${date}`}>
             Takaisin päivään
           </Link>

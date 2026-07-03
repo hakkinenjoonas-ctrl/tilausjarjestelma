@@ -27,7 +27,7 @@ export default async function DayOrdersPage({ params }: DayOrdersPageProps) {
             <Link className="ghost-button" href="/tilaukset">
               Takaisin päiviin
             </Link>
-            <PrintLink pickupDate={date} />
+            <PrintLink orderIds={orders.map((order) => order.id)} pickupDate={date} />
             <Link className="primary-button" href={`/uusi-tilaus?pickup_date=${date}`}>
               Uusi tilaus
             </Link>
