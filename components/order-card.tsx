@@ -70,7 +70,7 @@ export function OrderCard({ order }: OrderCardProps) {
         >
           Muokkaa
         </Link>
-        <LabelExportLinks date={order.pickup_date} id={order.id} />
+        <LabelExportLinks date={order.pickup_date} id={order.id} mode="sizes" />
         <form action={deleteOrderAction}>
           <input name="orderId" type="hidden" value={order.id} />
           <input name="pickupDate" type="hidden" value={order.pickup_date} />
