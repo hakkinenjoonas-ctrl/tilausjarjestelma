@@ -14,10 +14,10 @@ export function getLabelSize(size?: string): LabelSize {
 
 export function getLabelDimensions(size: LabelSize) {
   if (size === "4x3") {
-    return { width: 812, height: 609 };
+    return { width: 1200, height: 900 };
   }
 
-  return { width: 812, height: 1218 };
+  return { width: 1200, height: 1800 };
 }
 
 type OrderLabelProps = {
@@ -48,12 +48,11 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
         justifyContent: "space-between",
         background: "#ffffff",
         color: "#111111",
-        border: "3px solid #111111",
-        padding: compact ? "24px" : "28px",
+        padding: compact ? "14px 16px" : "18px 20px",
         fontFamily: "Avenir Next, Trebuchet MS, Arial, sans-serif"
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: compact ? 14 : 18 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: compact ? 10 : 14 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0, paddingRight: 12 }}>
             <div
@@ -99,7 +98,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               alignItems: "flex-end",
               gap: 8,
               flexShrink: 0,
-              width: compact ? 150 : 184
+              width: compact ? 118 : 148
             }}
           >
             {logoSrc ? (
@@ -108,9 +107,9 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
                 alt="Forelli"
                 height={cornerLogoSize}
                 src={logoSrc}
-                style={{ objectFit: "contain" }}
-                width={cornerLogoSize}
-              />
+              style={{ objectFit: "contain" }}
+              width={cornerLogoSize}
+            />
             ) : null}
             <div
               style={{
@@ -141,8 +140,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               flex: 1,
               minWidth: compact ? "100%" : "34%",
               border: "2px solid #dbe4f3",
-              borderRadius: 14,
-              padding: compact ? "12px 14px" : "14px 16px",
+              borderRadius: 12,
+              padding: compact ? "10px 12px" : "12px 14px",
               display: "flex",
               flexDirection: "column",
               gap: 6,
@@ -162,8 +161,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
               flex: 1,
               minWidth: compact ? "100%" : "28%",
               border: "2px solid #dbe4f3",
-              borderRadius: 14,
-              padding: compact ? "12px 14px" : "14px 16px",
+              borderRadius: 12,
+              padding: compact ? "10px 12px" : "12px 14px",
               display: "flex",
               flexDirection: "column",
               gap: 6,
@@ -184,8 +183,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
                 flex: 1,
                 minWidth: compact ? "100%" : "32%",
                 border: "2px solid #dbe4f3",
-                borderRadius: 14,
-                padding: compact ? "12px 14px" : "14px 16px",
+                borderRadius: 12,
+                padding: compact ? "10px 12px" : "12px 14px",
                 display: "flex",
                 flexDirection: "column",
                 gap: 6,
@@ -202,7 +201,7 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
           ) : null}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {order.order_items.map((item) => (
             <div
               key={item.id}
@@ -212,8 +211,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
                 gap: 16,
                 alignItems: "center",
                 borderBottom: "2px dashed #c6d6eb",
-                paddingBottom: compact ? 6 : 8,
-                paddingTop: compact ? 2 : 4
+                paddingBottom: compact ? 4 : 6,
+                paddingTop: compact ? 1 : 2
               }}
             >
               <div style={{ display: "flex", fontSize: itemSize, fontWeight: 700, maxWidth: "72%" }}>
@@ -238,8 +237,8 @@ export function OrderLabel({ order, size, logoSrc, sequenceLabel }: OrderLabelPr
           <div
             style={{
               border: "2px dashed #bdd0ea",
-              borderRadius: 14,
-              padding: compact ? "12px 14px" : "14px 16px",
+              borderRadius: 12,
+              padding: compact ? "10px 12px" : "12px 14px",
               display: "flex",
               flexDirection: "column",
               gap: 6,

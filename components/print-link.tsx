@@ -65,7 +65,7 @@ export function PrintLink({ pickupDate, orderIds }: PrintLinkProps) {
           onClick={() => void handleBatchPrint("4x6")}
           type="button"
         >
-          {loadingSize === "4x6" ? "Valmistellaan 4x6..." : "Tarrat 4x6"}
+          {loadingSize === "4x6" ? "Valmistellaan 4x6..." : "MUNBYN 4x6"}
         </button>
         <button
           className="ghost-button"
@@ -73,7 +73,7 @@ export function PrintLink({ pickupDate, orderIds }: PrintLinkProps) {
           onClick={() => void handleBatchPrint("4x3")}
           type="button"
         >
-          {loadingSize === "4x3" ? "Valmistellaan 4x3..." : "Tarrat 4x3"}
+          {loadingSize === "4x3" ? "Valmistellaan 4x3..." : "MUNBYN 4x3"}
         </button>
       </div>
       {error ? (

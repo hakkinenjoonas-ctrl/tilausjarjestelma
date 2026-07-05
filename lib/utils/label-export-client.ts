@@ -2,9 +2,12 @@
 
 export type ClientLabelSize = "4x6" | "4x3";
 
-const LABEL_DIMENSIONS: Record<ClientLabelSize, { width: number; height: number }> = {
-  "4x6": { width: 4, height: 6 },
-  "4x3": { width: 4, height: 3 }
+const LABEL_DIMENSIONS: Record<
+  ClientLabelSize,
+  { widthIn: number; heightIn: number; widthMm: number; heightMm: number }
+> = {
+  "4x6": { widthIn: 4, heightIn: 6, widthMm: 102, heightMm: 152 },
+  "4x3": { widthIn: 4, heightIn: 3, widthMm: 101.6, heightMm: 76.2 }
 };
 
 export function getPngUrl(date: string, id: string, size: ClientLabelSize) {
@@ -100,22 +103,22 @@ export async function sharePngFiles(blobs: Blob[], fileNames: string[], title: s
 
 export async function buildPdfFromPngBlobs(blobs: Blob[], size: ClientLabelSize) {
   const { jsPDF } = await import("jspdf");
-  const { width, height } = LABEL_DIMENSIONS[size];
-  const orientation = width > height ? "landscape" : "portrait";
+  const { widthIn, heightIn, widthMm, heightMm } = LABEL_DIMENSIONS[size];
+  const orientation = widthIn > heightIn ? "landscape" : "portrait";
   const pdf = new jsPDF({
     orientation,
-    unit: "in",
-    format: [width, height]
+    unit: "mm",
+    format: [widthMm, heightMm]
   });
 
   for (const [index, blob] of blobs.entries()) {
     const pngDataUrl = await blobToDataUrl(blob);
 
     if (index > 0) {
-      pdf.addPage([width, height], orientation);
+      pdf.addPage([widthMm, heightMm], orientation);
     }
 
-    pdf.addImage(pngDataUrl, "PNG", 0, 0, width, height, undefined, "FAST");
+    pdf.addImage(pngDataUrl, "PNG", 0, 0, widthMm, heightMm, undefined, "FAST");
   }
 
   return pdf.output("blob");

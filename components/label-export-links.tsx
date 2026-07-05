@@ -92,7 +92,7 @@ export function LabelExportLinks({
           onClick={() => void handleDirectExport("4x6")}
           type="button"
         >
-          {loadingAction === "direct-4x6" ? "Valmistellaan..." : "Tulosta 4x6"}
+          {loadingAction === "direct-4x6" ? "Valmistellaan..." : "Tulosta MUNBYN 4x6"}
         </button>
         <button
           className="ghost-button"
@@ -100,13 +100,13 @@ export function LabelExportLinks({
           onClick={() => void handleDirectExport("4x3")}
           type="button"
         >
-          {loadingAction === "direct-4x3" ? "Valmistellaan..." : "Tulosta 4x3"}
+          {loadingAction === "direct-4x3" ? "Valmistellaan..." : "Tulosta MUNBYN 4x3"}
         </button>
       </div>
       <p className="label-export-note">
         {androidDevice
           ? "Androidilla nappi avaa suoraan laitteen jakonäkymän MUNBYN Print -sovellusta varten."
-          : "iPhonessa ja selaimessa nappi muodostaa tarrasta suoraan tulostettavan PDF:n."}
+          : "PDF muodostetaan tarkalla MUNBYN-etikettikoolla ilman ylimääräisiä reunamarginaaleja."}
       </p>
       {error ? (
         <p aria-live="polite" className="label-export-error">
