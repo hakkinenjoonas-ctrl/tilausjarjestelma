@@ -678,6 +678,30 @@ a {
   align-items: center;
 }
 
+.product-group-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.product-group {
+  display: grid;
+  gap: 14px;
+}
+
+.product-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(13, 55, 116, 0.1);
+}
+
+.badge.subtle {
+  background: rgba(13, 55, 116, 0.06);
+  color: var(--muted);
+}
+
 .product-card {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);

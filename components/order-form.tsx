@@ -3,6 +3,7 @@
 import { useActionState, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createOrderAction, updateOrderAction } from "@/lib/actions/orders";
+import { groupProducts } from "@/lib/products";
 import type { DetailedOrder, Product } from "@/lib/types";
 
 const quickAmounts = [100, 200, 300, 400, 500, 600] as const;
@@ -56,6 +57,7 @@ export function OrderForm({
     () => new Set(selectedItems.map((item) => item.productId)),
     [selectedItems]
   );
+  const productGroups = useMemo(() => groupProducts(products), [products]);
 
   function toggleProduct(productId: string, checked: boolean) {
     setSelectedItems((current) => {
@@ -207,105 +209,116 @@ export function OrderForm({
           </div>
         ) : null}
 
-        <div className="product-list">
-          {products.map((product) => {
-            const selected = selectedIds.has(product.id);
-            const selectedItem = selectedItems.find((item) => item.productId === product.id);
+        <div className="product-group-stack">
+          {productGroups.map((group) => (
+            <section className="product-group" key={group.groupName}>
+              <div className="product-group-header">
+                <p className="section-label">{group.groupName}</p>
+                <span className="badge subtle">{group.products.length} tuotetta</span>
+              </div>
 
-            return (
-              <label
-                className={`product-card ${selected ? "selected" : ""}`}
-                id={`product-${product.id}`}
-                key={product.id}
-              >
-                <div className="product-card-top">
-                  <div className="checkbox-row">
-                    <input
-                      checked={selected}
-                      onChange={(event) => toggleProduct(product.id, event.target.checked)}
-                      type="checkbox"
-                    />
-                    <div className="product-card-copy">
-                      <strong>{product.name}</strong>
-                      {product.price ? <span>{product.price}</span> : null}
-                    </div>
-                  </div>
-                  <span className={`selection-state ${selected ? "on" : ""}`}>
-                    {selected ? "Valittu" : "Ei valittu"}
-                  </span>
-                </div>
+              <div className="product-list">
+                {group.products.map((product) => {
+                  const selected = selectedIds.has(product.id);
+                  const selectedItem = selectedItems.find((item) => item.productId === product.id);
 
-                {selected && selectedItem ? (
-                  <div className="amount-stack">
-                    <div className="chip-row">
-                      {quickAmounts.map((amount) => (
-                        <button
-                          className={`chip ${
-                            selectedItem.amountType === "preset" &&
-                            selectedItem.quantityGrams === amount
-                              ? "active"
-                              : ""
-                          }`}
-                          key={amount}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            updateAmountType(product.id, "preset");
-                            updateQuantity(product.id, amount);
-                          }}
-                          type="button"
-                        >
-                          {amount} g
-                        </button>
-                      ))}
-                      <button
-                        className={`chip ${
-                          selectedItem.amountType === "custom" ? "active" : ""
-                        }`}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          updateAmountType(product.id, "custom");
-                        }}
-                        type="button"
-                      >
-                        Muu maara
-                      </button>
-                    </div>
-
-                    {selectedItem.amountType === "custom" ? (
-                      <div className="custom-amount-row">
-                        <button
-                          className="stepper-button"
-                          onClick={() => adjustQuantity(product.id, -50)}
-                          type="button"
-                        >
-                          -50 g
-                        </button>
-                        <label className="field custom-amount-field">
-                          <span>Grammoina</span>
+                  return (
+                    <label
+                      className={`product-card ${selected ? "selected" : ""}`}
+                      id={`product-${product.id}`}
+                      key={product.id}
+                    >
+                      <div className="product-card-top">
+                        <div className="checkbox-row">
                           <input
-                            inputMode="numeric"
-                            min={1}
-                            onChange={(event) =>
-                              updateQuantity(product.id, Number(event.target.value) || 0)
-                            }
-                            type="number"
-                            value={selectedItem.quantityGrams}
+                            checked={selected}
+                            onChange={(event) => toggleProduct(product.id, event.target.checked)}
+                            type="checkbox"
                           />
-                        </label>
-                        <button
-                          className="stepper-button"
-                          onClick={() => adjustQuantity(product.id, 50)}
-                          type="button"
-                        >
-                          +50 g
-                        </button>
+                          <div className="product-card-copy">
+                            <strong>{product.name}</strong>
+                            {product.price ? <span>{product.price}</span> : null}
+                          </div>
+                        </div>
+                        <span className={`selection-state ${selected ? "on" : ""}`}>
+                          {selected ? "Valittu" : "Ei valittu"}
+                        </span>
                       </div>
-                    ) : null}
-                  </div>
-                ) : null}
-              </label>
-            );
-          })}
+
+                      {selected && selectedItem ? (
+                        <div className="amount-stack">
+                          <div className="chip-row">
+                            {quickAmounts.map((amount) => (
+                              <button
+                                className={`chip ${
+                                  selectedItem.amountType === "preset" &&
+                                  selectedItem.quantityGrams === amount
+                                    ? "active"
+                                    : ""
+                                }`}
+                                key={amount}
+                                onClick={(event) => {
+                                  event.preventDefault();
+                                  updateAmountType(product.id, "preset");
+                                  updateQuantity(product.id, amount);
+                                }}
+                                type="button"
+                              >
+                                {amount} g
+                              </button>
+                            ))}
+                            <button
+                              className={`chip ${
+                                selectedItem.amountType === "custom" ? "active" : ""
+                              }`}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                updateAmountType(product.id, "custom");
+                              }}
+                              type="button"
+                            >
+                              Muu maara
+                            </button>
+                          </div>
+
+                          {selectedItem.amountType === "custom" ? (
+                            <div className="custom-amount-row">
+                              <button
+                                className="stepper-button"
+                                onClick={() => adjustQuantity(product.id, -50)}
+                                type="button"
+                              >
+                                -50 g
+                              </button>
+                              <label className="field custom-amount-field">
+                                <span>Grammoina</span>
+                                <input
+                                  inputMode="numeric"
+                                  min={1}
+                                  onChange={(event) =>
+                                    updateQuantity(product.id, Number(event.target.value) || 0)
+                                  }
+                                  type="number"
+                                  value={selectedItem.quantityGrams}
+                                />
+                              </label>
+                              <button
+                                className="stepper-button"
+                                onClick={() => adjustQuantity(product.id, 50)}
+                                type="button"
+                              >
+                                +50 g
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </label>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
         </div>
       </section>
 
