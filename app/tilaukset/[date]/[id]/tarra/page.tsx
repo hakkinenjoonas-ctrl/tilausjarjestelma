@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { BrandMark } from "@/components/brand-mark";
 import { LabelExportLinks } from "@/components/label-export-links";
 import { getOrderById } from "@/lib/data/orders";
+import { getProducts } from "@/lib/data/orders";
 import { getLabelSize } from "@/lib/labels";
+import { estimateOrderPrice, formatEuroCents } from "@/lib/order-pricing";
 import {
   formatDateTime,
   formatPickupDate,
@@ -27,11 +29,21 @@ export default async function PrintOrderLabelPage({
 }: PrintOrderLabelPageProps) {
   const [{ date, id }, { size }] = await Promise.all([params, searchParams]);
   const labelSize = getLabelSize(size);
-  const order = await getOrderById(id);
+  const [order, products] = await Promise.all([getOrderById(id), getProducts()]);
 
   if (!order || order.pickup_date !== date) {
     notFound();
   }
+
+  const priceEstimate = estimateOrderPrice(order, products);
+  const totalPriceLabel = priceEstimate.hasEstimate
+    ? formatEuroCents(priceEstimate.totalCents)
+    : null;
+  const totalPriceNote = priceEstimate.hasEstimate
+    ? priceEstimate.isPartial
+      ? "Arvio perustuu hinnoiteltuihin tuotteisiin. Lopullinen summa määräytyy toteutuneen palvelutiskipainon mukaan."
+      : "Arvio perustuu tilattuihin määriin. Lopullinen summa määräytyy toteutuneen palvelutiskipainon mukaan ja voi poiketa hieman arviosta."
+    : null;
 
   return (
     <main className={`label-print-page single ${labelSize}`}>
@@ -64,16 +76,15 @@ export default async function PrintOrderLabelPage({
             <p className="label-kicker">Noutotilaus</p>
             <h1>{order.customer_name}</h1>
           </div>
-          <div className="label-status-block">
+          <div className="label-logo-block">
             <Image
               alt="Kalakauppa Forelli"
               className="label-corner-logo"
-              height={72}
+              height={112}
               priority
               src="/brand-logo-transparent.png"
-              width={72}
+              width={112}
             />
-            <span className={`label-status ${order.status}`}>{order.status}</span>
           </div>
         </header>
 
@@ -94,6 +105,14 @@ export default async function PrintOrderLabelPage({
           ) : null}
         </section>
 
+        {totalPriceLabel ? (
+          <section className="label-price-estimate">
+            <span className="label-meta-label">Arvioitu yhteensä</span>
+            <strong className="label-price-total">{totalPriceLabel}</strong>
+            {totalPriceNote ? <p className="label-price-note">{totalPriceNote}</p> : null}
+          </section>
+        ) : null}
+
         <section className="label-items">
           {order.order_items.map((item) => (
             <div className="label-item-row" key={item.id}>
@@ -112,10 +131,7 @@ export default async function PrintOrderLabelPage({
 
         <footer className="label-footer">
           <span>Luotu {formatDateTime(order.created_at)}</span>
-          <span className="label-checkline">
-            <span className="label-check-box" />
-            Noudettu
-          </span>
+          <span className="label-sequence">Asiakaskortti</span>
         </footer>
       </article>
     </main>

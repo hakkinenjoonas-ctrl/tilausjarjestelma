@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
-import { demoOrders } from "@/lib/data/demo-data";
+import { demoOrders, demoProducts } from "@/lib/data/demo-data";
 import { getSupabaseEnv, hasSupabaseEnv } from "@/lib/env";
 import { getLabelDimensions, getLabelSize, OrderLabel } from "@/lib/labels";
-import type { DetailedOrder } from "@/lib/types";
+import { estimateOrderPrice, formatEuroCents } from "@/lib/order-pricing";
+import type { DetailedOrder, Product } from "@/lib/types";
 
 export const runtime = "edge";
 
@@ -44,11 +45,36 @@ async function fetchOrderById(orderId: string, pickupDate: string) {
   return orders[0] ?? null;
 }
 
+async function fetchProducts() {
+  if (!hasSupabaseEnv()) {
+    return demoProducts;
+  }
+
+  const { url, anonKey } = getSupabaseEnv();
+  const query = new URL(`${url}/rest/v1/products`);
+  query.searchParams.set("select", "id,name,price,active,sort_order,created_at");
+  query.searchParams.set("order", "sort_order.asc");
+
+  const response = await fetch(query, {
+    headers: {
+      apikey: anonKey,
+      authorization: `Bearer ${anonKey}`
+    },
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    return demoProducts;
+  }
+
+  return (await response.json()) as Product[];
+}
+
 export async function GET(request: Request, context: RouteContext) {
   const { searchParams } = new URL(request.url);
   const size = getLabelSize(searchParams.get("size") ?? undefined);
   const { date, id } = await context.params;
-  const order = await fetchOrderById(id, date);
+  const [order, products] = await Promise.all([fetchOrderById(id, date), fetchProducts()]);
 
   if (!order || order.pickup_date !== date) {
     return new Response("Order not found", { status: 404 });
@@ -56,13 +82,31 @@ export async function GET(request: Request, context: RouteContext) {
 
   const { width, height } = getLabelDimensions(size);
   const logoSrc = new URL("/brand-logo-transparent.png", request.url).toString();
+  const priceEstimate = estimateOrderPrice(order, products);
+  const totalPriceLabel = priceEstimate.hasEstimate
+    ? formatEuroCents(priceEstimate.totalCents)
+    : null;
+  const totalPriceNote = priceEstimate.hasEstimate
+    ? priceEstimate.isPartial
+      ? "Arvio perustuu hinnoiteltuihin tuotteisiin. Lopullinen summa määräytyy toteutuneen palvelutiskipainon mukaan."
+      : "Arvio perustuu tilattuihin määriin. Lopullinen summa määräytyy toteutuneen palvelutiskipainon mukaan ja voi poiketa hieman arviosta."
+    : null;
 
-  return new ImageResponse(<OrderLabel logoSrc={logoSrc} order={order} size={size} />, {
+  return new ImageResponse(
+    <OrderLabel
+      logoSrc={logoSrc}
+      order={order}
+      size={size}
+      totalPriceLabel={totalPriceLabel}
+      totalPriceNote={totalPriceNote}
+    />,
+    {
     width,
     height,
     headers: {
       "Content-Type": "image/png",
       "Cache-Control": "no-store"
     }
-  });
+    }
+  );
 }

@@ -1298,14 +1298,15 @@ a {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .label-heading-block {
   display: grid;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
-  max-width: calc(100% - 168px);
+  flex: 1;
+  padding-right: 18px;
 }
 
 .label-header h1,
@@ -1315,8 +1316,9 @@ a {
 }
 
 .label-header h1 {
-  font-size: clamp(2.1rem, 4vw, 2.8rem);
-  line-height: 0.98;
+  font-size: clamp(2.5rem, 4.8vw, 3.35rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
 }
 
 .label-kicker,
@@ -1334,61 +1336,38 @@ a {
   color: var(--brand-strong);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.8rem;
+  font-size: 0.94rem;
   font-weight: 800;
 }
 
-.label-status-block {
-  display: grid;
-  justify-items: end;
-  gap: 8px;
-  width: 144px;
-  flex: 0 0 144px;
+.label-logo-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 154px;
+  flex: 0 0 154px;
+  align-self: center;
 }
 
 .label-corner-logo {
-  width: 108px;
-  height: 108px;
+  width: 132px;
+  height: 132px;
   object-fit: contain;
-}
-
-.label-status {
-  border: 1.5px solid #0d3774;
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #0d3774;
-}
-
-.label-status.uusi {
-  background: #eef4ff;
-}
-
-.label-status.kasittelyssa {
-  background: #fff5df;
-}
-
-.label-status.valmis {
-  background: #eaf7ef;
-}
-
-.label-status.noudettu {
-  background: #efefef;
+  filter: drop-shadow(0 18px 26px rgba(13, 55, 116, 0.12));
 }
 
 .label-primary-meta {
-  gap: 10px;
+  gap: 12px;
+  align-items: stretch;
 }
 
 .label-meta-box {
   flex: 1;
   border: 1px solid #d8e3f2;
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   display: grid;
-  gap: 4px;
+  gap: 6px;
   background: rgba(248, 251, 255, 0.96);
 }
 
@@ -1397,32 +1376,63 @@ a {
 }
 
 .pickup-date-value {
-  font-size: clamp(2.1rem, 4vw, 2.8rem);
-  line-height: 0.98;
+  font-size: clamp(2.5rem, 4.8vw, 3.35rem);
+  line-height: 0.92;
   letter-spacing: -0.03em;
+}
+
+.label-meta-box strong {
+  font-size: 1.22rem;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.label-price-estimate {
+  border: 1px solid #cfe0f5;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(245, 250, 255, 0.98) 0%, rgba(236, 244, 255, 0.98) 100%);
+}
+
+.label-price-total {
+  margin: 0;
+  font-size: clamp(2.1rem, 4vw, 2.8rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  color: #0d3774;
+}
+
+.label-price-note {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.35;
+  color: #4b6584;
 }
 
 .label-items {
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 
 .label-item-row {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  border-bottom: 1px dashed #c5d5e8;
-  padding-bottom: 6px;
+  gap: 14px;
+  align-items: baseline;
+  border-bottom: 2px dashed #c5d5e8;
+  padding-bottom: 10px;
 }
 
 .label-item-row strong {
-  font-size: 1rem;
-  max-width: 72%;
+  font-size: 1.36rem;
+  line-height: 1.1;
+  max-width: 76%;
 }
 
 .label-item-row span {
-  font-size: 1rem;
+  font-size: 1.42rem;
   font-weight: 700;
   white-space: nowrap;
 }
@@ -1430,32 +1440,23 @@ a {
 .label-notes {
   border: 1px dashed #c5d5e8;
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   display: grid;
   gap: 6px;
   background: rgba(248, 251, 255, 0.96);
 }
 
+.label-notes p {
+  font-size: 1.16rem;
+  line-height: 1.35;
+}
+
 .label-footer {
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 12px;
   border-top: 1px solid #d8e3f2;
-  font-size: 0.82rem;
+  font-size: 0.96rem;
   color: #4b6584;
-}
-
-.label-checkline {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  font-weight: 700;
-}
-
-.label-check-box {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #0d3774;
-  display: inline-block;
 }
 
 @media print {
@@ -1497,11 +1498,13 @@ a {
     width: 4in;
     height: 6in;
     min-height: 6in;
+    padding: 0.16in 0.16in 0.13in;
   }
 
   .label-sheet.4x3 {
     width: 4in;
     height: 3in;
     min-height: 3in;
+    padding: 0.12in;
   }
 }
