@@ -98,21 +98,24 @@ export default async function PrintDayPage({
             <LabelExportLinks date={order.pickup_date} id={order.id} />
           </div>
 
-          <section className="label-primary-meta">
+          <section className="label-primary-meta label-primary-meta-compact">
             <div className="label-meta-box pickup-date-box">
               <span className="label-meta-label">Noutopäivä</span>
               <strong className="pickup-date-value">{formatPickupDate(order.pickup_date)}</strong>
             </div>
-            <div className="label-meta-box">
-              <span className="label-meta-label">Puhelin</span>
-              <strong>{formatPhone(order.phone)}</strong>
-            </div>
-            {order.email ? (
-              <div className="label-meta-box">
-                <span className="label-meta-label">Sähköposti</span>
-                <strong>{order.email}</strong>
+
+            <div className="label-inline-meta">
+              <div className="label-inline-meta-item">
+                <span className="label-meta-label">Puhelin</span>
+                <strong>{formatPhone(order.phone)}</strong>
               </div>
-            ) : null}
+              {order.email ? (
+                <div className="label-inline-meta-item">
+                  <span className="label-meta-label">Sähköposti</span>
+                  <strong>{order.email}</strong>
+                </div>
+              ) : null}
+            </div>
           </section>
 
           {totalPriceLabel ? (
